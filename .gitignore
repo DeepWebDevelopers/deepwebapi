@@ -1,7 +1,10 @@
-
-# Packages
+# Hide from github
 node_modules
-# important keys > See exmaples for setup.
+
+# important
 config.json
-# Command strucutre. 
 util
+
+# Other things to hide
+
+assets
