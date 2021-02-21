@@ -1,2 +1,7 @@
+
+# Packages
 node_modules
+# important keys > See exmaples for setup.
 config.json
+# Command strucutre. 
+util
