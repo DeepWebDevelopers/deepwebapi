@@ -76,7 +76,7 @@ module.exports = class statsCommand extends commando.Command {
 							`\`\`\`md\n${os.cpus().map((i) => `${i.model}`)[0]}\`\`\``
 						)
 						.addField("🤖 CPU usage", `\`${percent.toFixed(2)}%\``, true)
-						.addField("🤖 Arch", `\`${os.arch()}\``, true)
+						.addField("🤖 Pop!_Os", `\`${os.arch()}\``, true)
 						.addField("💻 Platform", `\`\`${os.platform()}\`\``, true)
 						.addField("API Latency", `${message.client.ws.ping}ms`)
 						.addField("Bot Version", `${myversion}`, true)

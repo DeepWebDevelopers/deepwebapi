@@ -40,8 +40,8 @@
 	},
 	"scripts": {
 		"app": "node . ",
-		"test": "nodemon src/bot.js",
-		"dev": "nodemon ./index.js"
+		"test": "nodemon server/index.js",
+		"dev": "nodemon server/src/bot.js"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.7"

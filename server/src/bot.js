@@ -1,3 +1,4 @@
+"use strict";
 const Commando = require("discord.js-commando");
 const path = require("path");
 const config = require("./config.json");
@@ -13,7 +14,7 @@ const client = new Commando.Client({
 	invite: "https://discord.gg/NbqBQbaejS",
 	disableMentions: "everyone",
 	partials: ["GUILD_MEMBER", "MESSAGE", "REACTION", "USER", "CHANNEL"],
-	//ws: { intents: [Intents.NON_PRIVILEGED, "GUILD_MEMBERS"] }, //! If enabled it will stop intents
+	ws: { intents: [Intents.ALL, "GUILD_MEMBERS"] },
 });
 
 client.registry
@@ -50,7 +51,7 @@ client.registry
 //! Maps
 client.queue = new Map();
 
-//! Commando Database Struct
+//? Commando Database Struct
 const { mongo } = require("mongoose");
 const mongoose = require("./db/mongo");
 const MongoClient = require("mongodb").MongoClient;
