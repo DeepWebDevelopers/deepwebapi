@@ -1,7 +1,7 @@
 {
-	"name": "deepweb2",
+	"name": "terminal",
 	"version": "1.0.0",
-	"main": "index.js",
+	"main": "bot.js",
 	"license": "MIT",
 	"dependencies": {
 		"@discordjs/opus": "^0.4.0",
@@ -39,9 +39,9 @@
 		"util": "^0.12.3"
 	},
 	"scripts": {
-		"app": "node . ",
-		"test": "nodemon server/index.js",
-		"dev": "nodemon server/src/bot.js"
+		"app": "node .",
+		"test": "nodemon ",
+		"dev": "nodemon src/bot.js"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.7"
