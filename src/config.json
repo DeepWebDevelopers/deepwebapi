@@ -1,5 +1,5 @@
 {
-	"token": "NzY5NDA5Mjg5MDQzMDUwNTE2.X5OmPQ.3hgA4RmzDrhgJA4i7uB9XyCg0RY",
+	"token": "NzY5NDA5Mjg5MDQzMDUwNTE2.X5OmPQ.DF0DFNAwkxhU5plb-AYHc9QTLjA",
 	"prefix": "?",
 	"auth": "https://discord.com/oauth2/authorize?client_id=769409289043050516&permissions=334884087&scope=bot",
 	"db": "mongodb+srv://ThatGuyJamal:randomguylance@mongodb-host.m3iot.mongodb.net/dev-build?retryWrites=true&w=majority",

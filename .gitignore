@@ -1,10 +1,6 @@
 # Hide from github
 node_modules
 
-# important
-config.json
-util
-
 # Other things to hide
 
 assets

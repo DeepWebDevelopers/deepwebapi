@@ -39,7 +39,7 @@
 		"util": "^0.12.3"
 	},
 	"scripts": {
-		"run": "node . ",
+		"app": "node . ",
 		"test": "nodemon src/bot.js",
 		"dev": "nodemon ./index.js"
 	},

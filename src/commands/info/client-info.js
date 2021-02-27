@@ -69,7 +69,7 @@ module.exports = class statsCommand extends commando.Command {
 							`${message.client.channels.cache.size}`,
 							true
 						)
-						.addField("👾 Discord.js", `v${myversion}`, true)
+						.addField("👾 Discord.js", `v${version}`, true)
 						.addField("🤖 Node", `${process.version}`, true)
 						.addField(
 							"🤖 CPU",
