@@ -1,8 +1,6 @@
 const commando = require("discord.js-commando");
 const Command = require("../../util/base");
-module.exports = class PingCommand extends (
-	commando.Command
-) {
+module.exports = class PingCommand extends commando.Command {
 	constructor(client) {
 		super(client, {
 			name: "ping",
@@ -21,22 +19,26 @@ module.exports = class PingCommand extends (
 			},
 		});
 	}
-	async run(message, args) {
-		const Discord = require("discord.js");
+	async run(message) {
+		try {
+			const Discord = require("discord.js");
 
-		const embed2 = new Discord.MessageEmbed()
-			.setTitle("🏓 Ping")
-			.addField(
-				"**API Latency**",
-				`\`${Math.round(message.client.ws.ping)} ms\``
-			)
-			.setTimestamp()
-			.setThumbnail(message.guild.iconURL())
-			.setFooter(
-				`Powered by ThatGuyJamal#2695`,
-				message.author.displayAvatarURL()
-			)
-			.setColor("#c28ada");
-		message.channel.send(embed2);
+			const embed2 = new Discord.MessageEmbed()
+				.setTitle("🏓 Ping")
+				.addField(
+					`** API Latency**`,
+					`\`${Math.round(message.client.ws.ping)} ms\``
+				)
+				.setTimestamp()
+				.setThumbnail(message.guild.iconURL())
+				.setFooter(
+					`Powered by ThatGuyJamal#2695`,
+					message.author.displayAvatarURL()
+				)
+				.setColor("#c28ada");
+			message.channel.send(embed2);
+		} catch (e) {
+			console.log(e);
+		}
 	}
 };

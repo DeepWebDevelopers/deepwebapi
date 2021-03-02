@@ -5,15 +5,13 @@
 // const Command = require("../../util/base");
 // const { disambiguation } = require("../../util/util");
 
-// module.exports = class HelpCommand extends (
-// 	commando.Command
-// ) {
+// module.exports = class HelpCommand extends commando.Command {
 // 	constructor(client) {
 // 		super(client, {
-// 			name: "help2",
+// 			name: "help",
 // 			group: "info",
 // 			memberName: "helpcommand",
-// 			aliases: ["command2", "commands2"],
+// 			aliases: ["command", "commands"],
 // 			details: oneLine`
 // 				The command may be part of a command name or a whole command name.
 // 				If it isn't specified, all available commands will be listed.

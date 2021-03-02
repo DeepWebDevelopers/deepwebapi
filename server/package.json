@@ -41,7 +41,7 @@
 	"scripts": {
 		"app": "node .",
 		"test": "nodemon ",
-		"dev": "nodemon src/bot.js"
+		"demon": "nodemon src/bot.js"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.7"

@@ -3,10 +3,10 @@ const Commando = require("discord.js-commando");
 const path = require("path");
 const config = require("./config.json");
 const prefix = config.prefix;
-const join = require("path");
-const fs = require("fs");
+// const join = require("path");
+// const fs = require("fs");
 const Discord = require("discord.js");
-const { Intents, MessageEmbed } = require("discord.js");
+const { Intents } = require("discord.js");
 
 const client = new Commando.Client({
 	owner: "370637638820036608",
@@ -15,6 +15,7 @@ const client = new Commando.Client({
 	disableMentions: "everyone",
 	partials: ["GUILD_MEMBER", "MESSAGE", "REACTION", "USER", "CHANNEL"],
 	ws: { intents: [Intents.ALL, "GUILD_MEMBERS"] },
+	def_name: "Terminal",
 });
 
 client.registry
