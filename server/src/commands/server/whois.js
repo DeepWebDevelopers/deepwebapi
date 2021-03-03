@@ -148,7 +148,7 @@ module.exports = class Command extends commando.Command {
 						true
 					)
 					.addField(
-						"❯ Hoist Role",
+						"❯ Highst Role",
 						member.roles.hoist ? member.roles.hoist.name : "None",
 						true
 					)
@@ -158,9 +158,7 @@ module.exports = class Command extends commando.Command {
 					)
 					.setColor(member.displayHexColor);
 			} catch {
-				embed.setFooter(
-					"Failed to resolve member, showing basic user information instead."
-				);
+				embed.setFooter("Basic user info");
 			}
 		}
 		return msg.embed(embed);

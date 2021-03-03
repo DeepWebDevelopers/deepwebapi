@@ -1,8 +1,6 @@
 const { Command } = require("discord.js-commando");
 
-module.exports = class PruneCommand extends (
-	Command
-) {
+module.exports = class PruneCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: "prune",
@@ -34,9 +32,11 @@ module.exports = class PruneCommand extends (
 		message.channel
 			.bulkDelete(deleteCount)
 			.then((messages) =>
-				message.say(
-					`Successfully Deleted: ${messages.size} messages. (deleted by: ${message.author.tag})`
-				)
+				message
+					.say(
+						`Successfully Deleted: ${messages.size} messages. (deleted by: ${message.author.tag})`
+					)
+					.then((m) => m.delete({ timeout: 5000 }))
 			)
 			.catch((e) => {
 				// console.error(e);
