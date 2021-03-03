@@ -148,7 +148,7 @@ module.exports = class Command extends commando.Command {
 						true
 					)
 					.addField(
-						"❯ Highst Role",
+						"❯ Hoist Role",
 						member.roles.hoist ? member.roles.hoist.name : "None",
 						true
 					)
