@@ -7,8 +7,8 @@ module.exports = {
 	cooldown: "5s",
 	guildOnly: true,
 	permissions: ["SEND_MESSAGES"],
-	expectedArgs: "<one of the following: version, server, support, dwd",
-	description: "information about Guineabot",
+	expectedArgs: "<one of the following: version, server, support, dwd>",
+	description: "gives information about Terminal based on args",
 	category: "Information",
 	run: async ({ message, args, text, client, prefix, instance }) => {
 		if (args[0] === "version") {

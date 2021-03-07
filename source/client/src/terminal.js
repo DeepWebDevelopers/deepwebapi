@@ -2,7 +2,9 @@ const DiscordJS = require("discord.js");
 const WOKCommands = require("wokcommands");
 const discordXP = require("discord-xp");
 const cleverbot = require("cleverbot-free");
+const { Intents } = require("discord.js");
 const config = require("../../config/config.json");
+const prefix = config.prefix;
 
 const client = new DiscordJS.Client({
 	partials: [
@@ -30,6 +32,7 @@ const client = new DiscordJS.Client({
 		invite: "https://discord.gg",
 		template: "https://discord.new",
 	},
+	ws: { intents: [Intents.ALL, "GUILD_MEMBERS"] },
 });
 
 const { GiveawayCreator, DropCreator } = require("discord-giveaway");
@@ -140,6 +143,7 @@ client.on("ready", () => {
 	console.log(`Logged in as [${client.user.tag}]`);
 });
 
+// Supporting the leveling system.
 let recentMsg = new Set();
 
 client.on("message", async (message) => {
@@ -178,4 +182,7 @@ client.on("message", async (message) => {
 	}
 });
 
+// client.on errors
+client.on("warn", (info) => console.log(info));
+client.on("error", console.error);
 client.login(config.token);

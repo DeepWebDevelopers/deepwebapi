@@ -3,9 +3,9 @@ const Discord = require("discord.js");
 module.exports = {
 	name: "perms",
 	minArgs: 0,
-	maxArgs: 0,
+	maxArgs: 2,
 	cooldown: "15s",
-	// expectedArgs: "",
+	expectedArgs: "<@user> <channel>",
 	permissions: ["SEND_MESSAGES"],
 	description: "Shows a users permission via channel.",
 	category: "Information",

@@ -1,0 +1,20 @@
+{
+	"token": "your bot token",
+	"prefix": "your bot prefix",
+	"auth": "your bots invite url",
+	"db": "your mongo db connection link",
+	"client_server_invite": "your server invite link",
+	"bot_github": "bots github repo link if public",
+	"website_api": "your bots website",
+	"YOUTUBE_API_KEY": "your youtube api key to play music",
+	"donationLink": "a support link for bot donations",
+	"tenorAPI": "tenor api key from tenor.com",
+	"newsAPI": "",
+	"SOUNDCLOUD_CLIENT_ID": "your soundlcloud user token for playing music from soundloud",
+	"MAX_PLAYLIST_SIZE": 10,
+	"PRUNING": false,
+	"STAY_TIME": 30,
+	"DEFAULT_VOLUME": 100,
+	"bserver": "Your bot server",
+		"owner": "370637638820036608"
+}
