@@ -50,7 +50,7 @@ module.exports = class PrefixCommand extends commando.Command {
 			return message.reply(stripIndents`
 				${
 					prefix
-						? `The command prefix is \`\`${prefix}\`\`.`
+						? `The command prefix is \`\`${prefix}\`\``
 						: "There is no command prefix."
 				}
 				To run commands, use ${message.anyUsage("command")}.
