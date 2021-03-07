@@ -4,6 +4,7 @@ module.exports = {
 	name: "invite",
 	minArgs: 0,
 	maxArgs: 0,
+	cooldown: "30s",
 	permissions: ["SEND_MESSAGES"],
 	description: "Invite link to add the bot to a server",
 	category: "Information",

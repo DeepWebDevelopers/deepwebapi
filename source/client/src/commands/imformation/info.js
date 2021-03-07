@@ -4,6 +4,7 @@ module.exports = {
 	name: "info",
 	minArgs: 1,
 	maxArgs: 1,
+	cooldown: "5s",
 	guildOnly: true,
 	permissions: ["SEND_MESSAGES"],
 	expectedArgs: "<one of the following: version, server, support, dwd",

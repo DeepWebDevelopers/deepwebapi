@@ -3,6 +3,7 @@ node_modules
 
 # bot configeration files
 config
+config.json
 
 # Other things to hide
 assets

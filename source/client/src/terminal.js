@@ -75,6 +75,7 @@ client.on("ready", () => {
 		dbOptions,
 		messagesPath,
 		disabledDefaultCommands,
+		testServers: [""],
 	})
 		.setMongoPath(config.db)
 		.setColor("RANDOM")
