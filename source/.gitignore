@@ -1,0 +1,9 @@
+# Hide from github
+node_modules
+
+# bot configeration files
+config
+
+# Other things to hide
+assets
+util
