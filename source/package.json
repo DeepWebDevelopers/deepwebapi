@@ -4,6 +4,9 @@
   "main": "client/src/terminal.js",
   "license": "MIT",
   "dependencies": {
+    "cleverbot-free": "^1.0.5",
+    "discord-giveaway": "^1.1.3",
+    "discord-xp": "^1.1.8",
     "discord.js": "^12.5.1",
     "wokcommands": "github:AlexzanderFlores/WOKCommands#dev"
   },
