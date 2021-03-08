@@ -5,7 +5,9 @@ const canvas = require("discord-canvas"),
 module.exports = (client) => {
 	client.on("guildMemberRemove", async (member) => {
 		let channel = member.guild.channels.cache.find((channel) =>
-			channel.name.includes("t-goodbye" || "leaves" || "joins" || "members")
+			channel.name.includes(
+				"t-goodbye" || "leaves" || "joins" || "members" || "goodbyes"
+			)
 		);
 		if (!channel) return;
 

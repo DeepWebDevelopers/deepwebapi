@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("../../config/config.json");
 
-module.exports = async () => {
+module.exports = async (client) => {
 	//Create a connection to the database with set options
 	await mongoose
 		.createConnection(`${config.db}`, {
@@ -14,5 +14,6 @@ module.exports = async () => {
 			console.log(err);
 		});
 	mongoose.set("useFindAndModify", false);
+
 	return mongoose;
 };
