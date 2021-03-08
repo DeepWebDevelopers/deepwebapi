@@ -35,6 +35,8 @@ const client = new DiscordJS.Client({
 	ws: { intents: [Intents.ALL, "GUILD_MEMBERS"] },
 });
 
+//! for slash commands
+
 const { GiveawayCreator, DropCreator } = require("discord-giveaway");
 discordXP.setURL(`${config.db}`);
 const Creator = new GiveawayCreator(client, config.db);
@@ -68,6 +70,7 @@ client.on("ready", () => {
 		// 'language',
 		// 'prefix',
 		// 'requiredrole'
+		"ping",
 	];
 
 	// Initialize WOKCommands with specific folders and MongoDB
@@ -78,12 +81,12 @@ client.on("ready", () => {
 		dbOptions,
 		messagesPath,
 		disabledDefaultCommands,
-		testServers: [""],
+		testServers: ["771507203647209482"],
 	})
 		.setMongoPath(config.db)
 		.setColor("RANDOM")
 		.setBotOwner(config.owner)
-		.setDefaultPrefix("?")
+		.setDefaultPrefix(config.prefix)
 		.setCategorySettings([
 			{
 				name: "Bot Owner",
@@ -148,7 +151,12 @@ let recentMsg = new Set();
 
 client.on("message", async (message) => {
 	//Check if the person who sent the message is registered as a Discord Bot
-	if (message.author.id === client.user.id || message.author.bot) return;
+	if (
+		message.author.id === client.user.id ||
+		message.author.bot ||
+		message.channel.type === "dm"
+	)
+		return;
 
 	//Bot commands only work in servers, so add this to prevent permission errors originating from the DM
 	if (!message.guild)
@@ -184,5 +192,8 @@ client.on("message", async (message) => {
 
 // client.on errors
 client.on("warn", (info) => console.log(info));
+client.on("shardError", (error) => {
+	console.error("A websocket connection encountered an error:", error);
+});
 client.on("error", console.error);
 client.login(config.token);
