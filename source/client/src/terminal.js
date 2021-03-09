@@ -14,7 +14,7 @@ const client = new DiscordJS.Client({
 		"MESSAGE",
 		"USER",
 	],
-	retryLimit: 1,
+	retryLimit: 2,
 	restSweepInterval: 60,
 	restRequestTimeout: 15000,
 	restTimeOffset: 500,
@@ -127,66 +127,7 @@ client.on("ready", () => {
 				emoji: "🎉",
 			},
 		]);
-
-	let serverText = "servers";
-	if (client.guilds.cache.size === 1) serverText = "server";
-
-	client.user.setPresence({
-		activity: {
-			name: `@help | ${client.guilds.cache.size} ${serverText}`,
-			type: "STREAMING",
-			url: `https://www.youtube.com/watch?v=AhT83rwwF44`, //get noobed
-		},
-		status: "online",
-	});
-
-	console.log(`Logged in as [${client.user.tag}]`);
 });
-
-// // Supporting the leveling system.
-// let recentMsg = new Set();
-// discordXP.setURL(`${config.db}`);
-
-// client.on("message", async (message) => {
-// 	//Check if the person who sent the message is registered as a Discord Bot
-// 	if (
-// 		message.author.id === client.user.id ||
-// 		message.author.bot ||
-// 		message.channel.type === "dm"
-// 	)
-// 		return;
-
-// 	//Bot commands only work in servers, so add this to prevent permission errors originating from the DM
-// 	if (!message.guild)
-// 		return cleverbot(message.content).then((response) =>
-// 			message.channel.send(response)
-// 		);
-
-// 	//Points system
-// 	if (recentMsg.has(message.author.id)) return;
-// 	else {
-// 		recentMsg.add(message.author.id);
-
-// 		//Generates a random amount of points to add to the member, and adds it to the database
-// 		let earnedXP = Math.floor(Math.random() * 9) + 1;
-// 		let hasLeveledUp = await discordXP.appendXp(
-// 			message.author.id,
-// 			message.guild.id,
-// 			earnedXP
-// 		);
-
-// 		//Checks if the user leveled up, and notify the member
-// 		if (hasLeveledUp) {
-// 			let XPuser = await discordXP.fetch(message.author.id, message.guild.id);
-// 			message.reply(`GG! You leveled up to level **${XPuser.level}**!`);
-// 		}
-
-// 		setTimeout(() => {
-// 			// Removes the user from the set after a minute
-// 			recentMsg.delete(message.author.id);
-// 		}, 45000);
-// 	}
-// });
 
 // client.on errors
 client.on("warn", (info) => console.log(info));

@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const Logs = require("../../db/logging");
+const Logs = require("../../db/guild/logging");
 module.exports = (client) => {
 	client.on("channelCreate", async (channel) => {
 		if (channel.type === "dm") return;

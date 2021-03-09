@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const Logs = require("../../db/logging");
+const Logs = require("../../db/guild/logging");
 
 function checkDays(date) {
 	let now = new Date();

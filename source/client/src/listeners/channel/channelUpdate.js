@@ -1,8 +1,8 @@
 const Discord = require("discord.js");
-const Logs = require("../../db/logging");
+const Logs = require("../../db/guild/logging");
 module.exports = (client) => {
 	client.on("channelUpdate", async (client, oldChannel, newChannel) => {
-		if (newChannel.type === "dm") return;
+		if (Channel.type === "dm") return;
 
 		let ChannelLogs = await Logs.findOne({ guild: newChannel.guild.id });
 		if (!ChannelLogs) return;

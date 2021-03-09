@@ -27,7 +27,7 @@ module.exports = {
 				.setTitle("Setup unsuccessful")
 				.setAuthor(message.author.tag, message.author.avatarURL())
 				.setDescription(
-					"I don't have the correct permissions. Try re-inviting me and adding `Administrator` permission. If this problem occurs, do g?info support."
+					`I don't have the correct permissions. Try re-inviting me and adding **Administrator** permission. If this problem occurs, do **${prefix}info** support.`
 				)
 				.setThumbnail(message.client.user.avatarURL())
 				.setTimestamp()

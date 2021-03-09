@@ -16,8 +16,8 @@
         "spanish": "El idioma actual de este servidor es **{LANGUAGE}**."
     },
     "BOT_OWNERS_ONLY": {
-        "english": "Only ${Cy1der}#0001 can run this command.",
-        "spanish": "Solo ${Cy1der}#0001 puede ejecutar este comando."
+        "english": "Only ThatGuyJamal#2695 can run this command.",
+        "spanish": "Solo ThatGuyJamal#2695 puede ejecutar este comando."
     },
     "DISABLED_COMMAND": {
         "english": "That command is currently disabled on this server.",
