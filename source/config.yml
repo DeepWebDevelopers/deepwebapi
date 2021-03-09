@@ -1,0 +1,36 @@
+---
+name: "Terminal" # project name
+developers: # developers id stored in array for devOnly commands
+  [
+    "370637638820036608", #
+    "", # null
+  ]
+version: 1.0.0 # current version
+lib: Discord.JS # lib used for the bot
+
+# configs
+prefix: "?" # default prefix
+embedColor: "#7289DA" # default embed color
+
+# client
+client:
+  tag: "Terminal#7004" # bot full tag
+  id: "769409289043050516" # bot id
+  game: "DeepWeb" # what the game activity should be
+  type: "COMPETING" # COMPETING (5), WATCHING(3), LISTENING (2), STREAMING (1), PLAYING (0)
+  status: "online" # online, idle, dnd, invisible
+  fetchAllUsers: false # if the bot should fetch all the user on start
+  disableMentions: "everyone" # disable certain mentions
+
+# server
+server:
+  prometheusHost: "localhost" # host for prometheus
+  prometheusPort: 7070 # port for prometheus
+
+# support
+supportInvite: "https://discord.com/invite/NbqBQbaejS" # support guild invite link
+
+# logs
+# botDM: """     # channel id for bot dms
+# invite: ""    # channel id for bot invites
+# error: ""     # channel id for bot errors

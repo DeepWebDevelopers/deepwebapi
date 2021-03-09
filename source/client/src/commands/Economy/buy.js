@@ -185,7 +185,7 @@ module.exports = {
 				let chosenItem = args.slice(0).join(" ");
 
 				for (let i = 0; i < Items.length; i++) {
-					if (chosenItem === Items[i].name) {
+					if (chosenItem === Items[i].name.toLowerCase()) {
 						if (currentWallet < Items[i].cost)
 							return message.reply(
 								`You don't have that amount of money in your wallet!`
@@ -217,9 +217,11 @@ module.exports = {
 					}
 				}
 
-				return message.reply(
-					`Could not find a **${chosenItem}** in the shop.\nMake sure you entered your choice case sensitive!`
-				);
+				return message
+					.reply(
+						`Could not find a **${chosenItem}** in the shop.\n Make sure you entered your choice case sensitive!\n Check your spelling.`
+					)
+					.then((m) => delete { timeout: 3000 });
 			} catch (err) {
 				console.log(err);
 				message.channel.send(

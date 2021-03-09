@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 module.exports = {
-	name: "setup",
+	name: "nuke",
 	minArgs: 0,
 	maxArgs: 0,
-	cooldown: "5s",
-	description: "Create all the channels/roles the bot needs",
+	cooldown: "30s",
+	description: "Deletes the channel and recreates it.",
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
 		const msg = await message.channel.send(

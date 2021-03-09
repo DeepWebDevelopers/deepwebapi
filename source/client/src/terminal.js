@@ -1,6 +1,5 @@
 const DiscordJS = require("discord.js");
 const WOKCommands = require("wokcommands");
-const discordXP = require("discord-xp");
 const cleverbot = require("cleverbot-free");
 const { Intents } = require("discord.js");
 const config = require("../../config/config.json");
@@ -35,17 +34,15 @@ const client = new DiscordJS.Client({
 	ws: { intents: [Intents.ALL, "GUILD_MEMBERS"] },
 });
 
-//! for slash commands
-
 const { GiveawayCreator, DropCreator } = require("discord-giveaway");
-discordXP.setURL(`${config.db}`);
 const Creator = new GiveawayCreator(client, config.db);
 const Creator2 = new DropCreator(client, config.db);
 
 client.queue = new Map();
 client.giveaways = Creator;
 client.drops = Creator2;
-
+// client.snipes = new Map();
+// client.editsnipes = new Map();
 client.config = client;
 
 client.on("ready", () => {
@@ -65,12 +62,12 @@ client.on("ready", () => {
 	// If you want to disable built in commands you can add them to this array. Simply uncomment the strings to disable that command.
 
 	const disabledDefaultCommands = [
-		// 'help',
+		// "help",
 		// 'command',
 		// 'language',
 		// 'prefix',
 		// 'requiredrole'
-		"ping",
+		// "ping",
 	];
 
 	// Initialize WOKCommands with specific folders and MongoDB
@@ -146,49 +143,50 @@ client.on("ready", () => {
 	console.log(`Logged in as [${client.user.tag}]`);
 });
 
-// Supporting the leveling system.
-let recentMsg = new Set();
+// // Supporting the leveling system.
+// let recentMsg = new Set();
+// discordXP.setURL(`${config.db}`);
 
-client.on("message", async (message) => {
-	//Check if the person who sent the message is registered as a Discord Bot
-	if (
-		message.author.id === client.user.id ||
-		message.author.bot ||
-		message.channel.type === "dm"
-	)
-		return;
+// client.on("message", async (message) => {
+// 	//Check if the person who sent the message is registered as a Discord Bot
+// 	if (
+// 		message.author.id === client.user.id ||
+// 		message.author.bot ||
+// 		message.channel.type === "dm"
+// 	)
+// 		return;
 
-	//Bot commands only work in servers, so add this to prevent permission errors originating from the DM
-	if (!message.guild)
-		return cleverbot(message.content).then((response) =>
-			message.channel.send(response)
-		);
+// 	//Bot commands only work in servers, so add this to prevent permission errors originating from the DM
+// 	if (!message.guild)
+// 		return cleverbot(message.content).then((response) =>
+// 			message.channel.send(response)
+// 		);
 
-	//Points system
-	if (recentMsg.has(message.author.id)) return;
-	else {
-		recentMsg.add(message.author.id);
+// 	//Points system
+// 	if (recentMsg.has(message.author.id)) return;
+// 	else {
+// 		recentMsg.add(message.author.id);
 
-		//Generates a random amount of points to add to the member, and adds it to the database
-		let earnedXP = Math.floor(Math.random() * 9) + 1;
-		let hasLeveledUp = await discordXP.appendXp(
-			message.author.id,
-			message.guild.id,
-			earnedXP
-		);
+// 		//Generates a random amount of points to add to the member, and adds it to the database
+// 		let earnedXP = Math.floor(Math.random() * 9) + 1;
+// 		let hasLeveledUp = await discordXP.appendXp(
+// 			message.author.id,
+// 			message.guild.id,
+// 			earnedXP
+// 		);
 
-		//Checks if the user leveled up, and notify the member
-		if (hasLeveledUp) {
-			let XPuser = await discordXP.fetch(message.author.id, message.guild.id);
-			message.reply(`GG! You leveled up to level **${XPuser.level}**!`);
-		}
+// 		//Checks if the user leveled up, and notify the member
+// 		if (hasLeveledUp) {
+// 			let XPuser = await discordXP.fetch(message.author.id, message.guild.id);
+// 			message.reply(`GG! You leveled up to level **${XPuser.level}**!`);
+// 		}
 
-		setTimeout(() => {
-			// Removes the user from the set after a minute
-			recentMsg.delete(message.author.id);
-		}, 45000);
-	}
-});
+// 		setTimeout(() => {
+// 			// Removes the user from the set after a minute
+// 			recentMsg.delete(message.author.id);
+// 		}, 45000);
+// 	}
+// });
 
 // client.on errors
 client.on("warn", (info) => console.log(info));

@@ -1,6 +1,6 @@
 {
   "name": "terminal",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "client/src/terminal.js",
   "license": "MIT",
   "dependencies": {
@@ -21,6 +21,7 @@
     "child_process": "^1.0.2",
     "cleverbot-free": "^1.0.5",
     "color-diff": "^1.2.0",
+    "common-tags": "^1.8.0",
     "cpu-stat": "^2.0.1",
     "delay": "^4.4.0",
     "discord-canvas": "^1.4.1",
@@ -71,6 +72,8 @@
     "reverse-text": "0.0.1",
     "salvage-music": "^1.0.0",
     "sarcastic-text": "0.0.4",
+    "search-npm-registry": "^2.0.3",
+    "shelljs": "^0.8.4",
     "simple-youtube-api": "^5.2.1",
     "soundcloud-downloader": "^0.2.1",
     "sourcebin_js": "0.0.3-ignore",

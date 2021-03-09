@@ -1,5 +1,5 @@
 module.exports = {
-	commands: "pings",
+	commands: "ping",
 	aliases: ["ping"],
 	minArgs: 0,
 	maxArgs: 0,

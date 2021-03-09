@@ -4,6 +4,7 @@ module.exports = {
 	aliases: ["pfp"],
 	minArgs: 0,
 	maxArgs: 1,
+	cooldown: "10s",
 	expectedArgs: "[mention]",
 	description: "Fetch your profile avatar",
 	category: "Utility",
