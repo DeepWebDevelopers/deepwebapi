@@ -8,7 +8,7 @@ module.exports = (client) => {
 
 		const logEmbed = new Discord.MessageEmbed()
 			.setColor("RANDOM")
-			.setTitle("Invite Created")
+			.setTitle("Invite Deleted")
 			.setDescription(`**Temporary?** ${invite.temporary ? "Yes" : "No"}`)
 			.addFields(
 				{

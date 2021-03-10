@@ -1,19 +1,18 @@
 const { Client, Message, MessageEmbed } = require("discord.js");
+const sourcebin = require("sourcebin_js");
 module.exports = {
-	name: "npm",
-	aliases: ["nodedocs", "npmsr"],
-	minArgs: 0,
-	maxArgs: 0,
-	expectedArgs: "<query>",
-	cooldown: "10s",
+	name: "sbin",
+	aliases: ["sourceup", "superbin"],
+	// expectedArgs: "<code>",
+	cooldown: "20s",
 	description: "Checks how long the bot has been running for.",
-	category: "Fun & Games",
+	category: "Org",
 	run: async ({ message, args, text, client, prefix, instance }) => {
 		if (!args.join(" "))
 			return message
-				.reply("You did not send any code?")
+				.reply(`Incorrect Syntax. Exmaple: ${prefix}`)
 				.then((m) => m.delete({ timeout: 4000 }));
-		const sourcebin = require("sourcebin_js");
+
 		sourcebin
 			.create([
 				{
@@ -23,7 +22,7 @@ module.exports = {
 				},
 			])
 			.then((src) => {
-				message.channel.send(src.url);
+				message.channel.send(`Here is a link to your code: ${src.url}.`);
 			})
 			.catch((e) => {
 				message.channel.send(`Error, try again later`);

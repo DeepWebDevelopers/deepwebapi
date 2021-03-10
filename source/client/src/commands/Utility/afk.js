@@ -4,7 +4,7 @@ module.exports = {
 	name: "afk",
 	minArgs: 1,
 	maxArgs: -1,
-	cooldown: "10s",
+	cooldown: "1m",
 	expectedArgs: "<reason>",
 	description: "Notify member is offline or AFK",
 	category: "Utility",
@@ -13,7 +13,7 @@ module.exports = {
 		const reason1 = args.join(" ") || "Reason not specified";
 		if (reason1.length > 100)
 			return message.channel.send(
-				"<:HBminus:783351288515657728> | The reason cannot exceed 100 characters."
+				":red_circle: The reason cannot exceed 100 characters."
 			);
 
 		if (!afk_data)
@@ -41,11 +41,11 @@ module.exports = {
 			)
 			.setColor("RANDOM")
 			.setDescription(
-				"<:HBuser:783351289114918973> **" +
+				"AFk logged! " +
 					message.author.tag +
 					"** you are **AFK**\nIf you send a message again, you will be removed from the AFK list"
 			)
-			.addField("<:HBsearch:783351288149835857> **Reason:**", `${reason1}`);
+			.addField(" **Reason:**", `${reason1}`);
 		message.channel.send(embedAFKUser);
 	},
 };

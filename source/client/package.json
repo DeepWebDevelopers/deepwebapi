@@ -1,7 +1,7 @@
 {
   "name": "terminal",
   "version": "1.0.0",
-  "main": "client/src/terminal.js",
+  "main": "src/terminal.js",
   "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.3.3",
@@ -92,7 +92,7 @@
   },
   "scripts": {
     "demon": "nodemon",
-    "start": "nodemon client/index.js"
+    "start": "nodemon src/shard.js"
   },
   "devDependencies": {
     "eslint": "^7.14.0",

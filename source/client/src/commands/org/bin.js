@@ -8,7 +8,7 @@ module.exports = {
 	expectedArgs: "<query>",
 	cooldown: "10s",
 	description: "Checks how long the bot has been running for.",
-	category: "Fun & Games",
+	category: "Org",
 	run: async ({ message, args, text, client, prefix, instance }) => {
 		const embed = new MessageEmbed()
 

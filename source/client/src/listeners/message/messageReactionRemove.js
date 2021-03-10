@@ -32,5 +32,5 @@
 module.exports.config = {
 	displayName: "Message Reaction Remove",
 	dbName: "Terminalmod",
-	loadDBFirst: true,
+	loadDBFirst: false,
 };

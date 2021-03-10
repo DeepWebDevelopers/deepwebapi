@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports = {
-	name: "foucekill",
+	name: "forceleave",
 	aliases: ["forcedestroy", "superkill"],
 	minArgs: 0,
 	maxArgs: 0,

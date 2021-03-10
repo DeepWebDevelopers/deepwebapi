@@ -26,7 +26,7 @@ module.exports = {
 					return message.channel.send(`${target.tag} has no warnings. :)`);
 
 				const embed = new Discord.MessageEmbed()
-					.setColor("RANDOM")
+					.setColor("YELLOW")
 					.setAuthor(message.author.tag, message.author.avatarURL())
 					.setTitle(`Previous warnings for ${target.tag}`)
 					.setTimestamp()

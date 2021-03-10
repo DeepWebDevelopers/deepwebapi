@@ -43,7 +43,6 @@ client.giveaways = Creator;
 client.drops = Creator2;
 // client.snipes = new Map();
 // client.editsnipes = new Map();
-client.config = client;
 
 client.on("ready", () => {
 	// See the "Language Support" section of this documentation
@@ -78,7 +77,7 @@ client.on("ready", () => {
 		dbOptions,
 		messagesPath,
 		disabledDefaultCommands,
-		testServers: ["771507203647209482"],
+		testServers: ["771507203647209482", "818306049777860628"],
 	})
 		.setMongoPath(config.db)
 		.setColor("RANDOM")

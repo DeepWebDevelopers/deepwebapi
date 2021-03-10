@@ -5,12 +5,12 @@ const { stripIndents } = require("common-tags");
 module.exports = {
 	name: "npm",
 	aliases: ["nodedocs", "npmsr"],
-	minArgs: 0,
-	maxArgs: 0,
+	minArgs: 1,
+	maxArgs: -1,
 	expectedArgs: "<query>",
 	cooldown: "10s",
 	description: "Checks how long the bot has been running for.",
-	category: "Fun & Games",
+	category: "Org",
 	run: async ({ message, args, text, client, prefix, instance }) => {
 		// Variables
 		const argsNPM = args.join(" ");

@@ -16,13 +16,21 @@ module.exports = {
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
 		let target = message.mentions.members.first();
-		let targetId = target.id;
-		let targetTag = `${target.user.username}#${target.user.discriminator}`;
+		try {
+			var targetId = target.id;
+		} catch {
+			return message.reply(
+				"Cant find that user. Make sure there in the server."
+			);
+		}
+
+		var targetId = target.id;
+		targetTag = `${target.user.username}#${target.user.discriminator}`;
 
 		if (targetId === client.user.id)
-			return message.reply("You cannot mute me using me.");
+			return message.reply("Did you really just try to unmute me...using me?");
 		if (targetId === message.author.id)
-			return message.reply("You cannot mute yourself.");
+			return message.reply("You cannot unmute yourself.");
 		if (target.user.bot)
 			return message.reply("Target is a bot, failed to unmute.");
 
@@ -81,7 +89,7 @@ module.exports = {
 								.setTimestamp();
 							message.channel.send(success);
 							const modlogEmbed = new Discord.MessageEmbed()
-								.setColor("RANDOM")
+								.setColor("GREEN")
 								.setTitle("Member UnMuted")
 								.setAuthor("Terminal Modlog", message.client.user.avatarURL())
 								.setTimestamp()

@@ -12,15 +12,6 @@ module.exports = {
 	description: "Remove all warnings from a member",
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
-		let modlog = message.guild.channels.cache.find((channel) => {
-			return channel.name && channel.name.includes("t-modlog");
-		});
-
-		if (!modlog)
-			message.channel.send(
-				`Could not find channel **t-modlog**, please install the required values using \`${prefix}setup\` as it is HIGHLY recommended.`
-			);
-
 		let target = message.mentions.users.first();
 		if (!target)
 			return message.reply(
@@ -44,10 +35,29 @@ module.exports = {
 			message.channel.send(`Removed all warnings for ${target}`);
 		});
 
+		//? logging
+		const Logs = require("../../db/guild/logging");
+		var d = new Date(Date.now());
+		const guildDB = await Logs.findOne(
+			{
+				guildID: message.guild.id,
+			},
+			async (err, guild) => {
+				if (err) console.error(err);
+
+				if (!guild) {
+					return message.reply(
+						`There is no modlog system setup for Terminal. Please set one up for my command functions. Run: **${prefix}setlogs**`
+					);
+				}
+			}
+		);
+		const modlog = message.guild.channels.cache.get(guildDB.logChannelID);
+
 		const logEmbed = new Discord.MessageEmbed()
-			.setColor("RANDOM")
+			.setColor("BLUE")
 			.setTitle("Warnings cleared for user")
-			.setAuthor("Modlog")
+			.setAuthor("Automated Terminal message", message.client.user.avatarURL())
 			.addFields(
 				{
 					name: "Moderator: ",

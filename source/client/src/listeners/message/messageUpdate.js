@@ -1,10 +1,6 @@
-//? Need to fix 'bot' error
-
 // const Discord = require("discord.js");
-// module.exports = async (client, message) => {
-// 	client.on("messageUpdate", (oldMessage, newMessage) => {
-// 		let bot = message;
-// 		if (newMessage.author.bot || message.channel.type === "dm") return;
+// module.exports = async (client, message, channel) => {
+// 	client.on("messageUpdate", (oldMessage, newMessage, channel) => {
 // 		let modlog = newMessage.guild.channels.cache.find((channel) =>
 // 			channel.name.includes("t-modlog")
 // 		);
@@ -16,11 +12,11 @@
 // 			.addFields(
 // 				{
 // 					name: "Old Message:",
-// 					value: oldMessage.content,
+// 					value: `${oldMessage.content}`,
 // 				},
 // 				{
 // 					name: "New Message:",
-// 					value: newMessage.content,
+// 					value: `${newMessage.content}`,
 // 				},
 // 				{
 // 					name: "Message Sender:",
@@ -39,5 +35,5 @@
 module.exports.config = {
 	displayName: "Message Update",
 	dbName: "Terminalmod",
-	loadDBFirst: true,
+	loadDBFirst: false,
 };

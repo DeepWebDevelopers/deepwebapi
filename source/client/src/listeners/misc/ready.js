@@ -16,7 +16,9 @@ module.exports = (client) => {
 	setInterval(
 		() =>
 			client.user.setActivity(
-				`My Development`, // ${config.prefix}help | ${activities[i++ % activities.length]}
+				`My Development | ${config.prefix}help | ${
+					activities[i++ % activities.length]
+				}`,
 				{ type: "WATCHING" }
 			),
 		5000

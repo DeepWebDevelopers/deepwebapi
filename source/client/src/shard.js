@@ -6,7 +6,7 @@ const manager = new Discord.ShardingManager("./terminal.js", {
 	token: config.token,
 });
 
-manager.spawn(manager.totalShards, 10); //set to 5000 after testing
+manager.spawn(manager.totalShards, 3); //setting to 5000 after testing
 
 manager.on("shardCreate", (shard) => {
 	shard.on("ready", () => {

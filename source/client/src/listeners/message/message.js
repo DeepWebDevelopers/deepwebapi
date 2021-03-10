@@ -5,10 +5,22 @@ discordXP.setURL(`${config.db}`);
 const moment = require("moment");
 const { stripIndents, oneLine } = require("common-tags");
 
-module.exports = (client) => {
+module.exports = (client, Channel) => {
+	//! Basic message listener events:
+
+	// var type = {
+	// 	dm: "DM",
+	// 	text: "Text",
+	// 	voice: "Voice",
+	// 	category: "Category",
+	// 	news: "News",
+	// 	store: "Store",
+	// 	unknown: "Unknown",
+	// };
+
 	// Supporting the leveling system.
 	let recentMsg = new Set();
-	client.on("message", async (message) => {
+	client.on("message", async (message, prefix) => {
 		// ? Blacklisting system
 
 		const blacklist = require("../../db/blacklist");
@@ -17,8 +29,8 @@ module.exports = (client) => {
 
 		//? Util Checks
 
-		let prefix = message;
-		if (message.content === "deepweb") {
+		// let prefix = config.prefix;
+		if (message.content === "terminal") {
 			message.channel.send(
 				`Hello, my prefix in this server is \`${prefix}\`. To see a list of commands run \`${prefix}help\``
 			);
@@ -95,7 +107,7 @@ module.exports = (client) => {
 				)
 				.setColor("#00FF42")
 				.addField(
-					"<:HBrefresh:783351288292442183> **AFK time**",
+					"**AFK time**",
 					moment
 						.duration(Date.now() - data.timeAfk)
 						.format("d [Days], h [Hours], m [Minutes], s [Seconds]", {

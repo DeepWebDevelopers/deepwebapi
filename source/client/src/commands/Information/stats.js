@@ -18,7 +18,12 @@ module.exports = {
 			const cores = os.cpus().length;
 			const cpuModel = os.cpus()[0].model;
 			const guild = message.client.guilds.cache.size.toLocaleString();
-			const user = message.client.users.cache.size.toLocaleString();
+			//? Supports sharding
+			let user = client.guilds.cache.reduce(
+				(acc, value) => acc + value.memberCount,
+				0
+			);
+			// const user = message.client.users.cache.size.toLocaleString();
 			const channel = message.client.channels.cache.size.toLocaleString();
 			const usage = formatBytes(process.memoryUsage().heapUsed);
 			const Node = process.version;
