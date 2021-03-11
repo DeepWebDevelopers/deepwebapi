@@ -5,6 +5,7 @@ module.exports = {
 	maxArgs: 0,
 	requiredPermissions: ["MANAGE_CHANNELS"],
 	cooldown: "3s",
+	testOnly: true,
 	description: "Deletes the channel and recreates it.",
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {

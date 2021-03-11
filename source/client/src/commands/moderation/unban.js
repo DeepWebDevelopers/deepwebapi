@@ -10,6 +10,7 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: -1,
 	expectedArgs: "<user ID> [reason]",
+	testOnly: true,
 	description: "Unban a user from the Discord server",
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
