@@ -8,6 +8,7 @@ module.exports = {
 	requiredPermissions: ["MUTE_MEMBERS"],
 	minArgs: 1,
 	maxArgs: -1,
+	testOnly: true,
 	expectedArgs: "<mention> [reason]",
 	description: "Prevent user from talking in voice channels",
 	category: "Moderation",

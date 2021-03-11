@@ -1,6 +1,7 @@
 const mongo = require("../../mongo");
 const banSchema = require("../../db/ban");
 const Discord = require("discord.js");
+const { trimResultTransformer } = require("common-tags");
 
 module.exports = {
 	name: "ban",
@@ -68,11 +69,12 @@ module.exports = {
 
 						if (!guild) {
 							return message.reply(
-								"There is no modlog system setup for Terminal. Please set one up for my command functions. Run: `setlogs`"
+								`There is no modlog system setup for Terminal. Please set one up for my command functions. Run: **${prefix}setlogs**`
 							);
 						}
 					}
 				);
+
 				const modlog = message.guild.channels.cache.get(guildDB.logChannelID);
 
 				const modlogEmbed = new Discord.MessageEmbed()
@@ -116,8 +118,9 @@ module.exports = {
 					.setTimestamp();
 				message.channel.send(success);
 			} catch (err) {
-				console.log(err);
-				message.channel.send(`An error occurred: \`${err.message}\``);
+				return;
+				// console.log(err);
+				// message.channel.send(`An error occurred: \`${err.message}\``);
 			}
 		});
 	},

@@ -10,6 +10,7 @@ module.exports = {
 	maxArgs: -1,
 	expectedArgs: "<mention> [reason]",
 	description: "Alow user to talk in voice channels",
+	testOnly: true,
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
 		let modlog = message.guild.channels.cache.find((channel) => {

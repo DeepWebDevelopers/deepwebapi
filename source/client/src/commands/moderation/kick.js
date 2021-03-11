@@ -9,9 +9,9 @@ module.exports = {
 	description: "Kick a user from the Discord server",
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
-		if (!message.guild.me.hasPermission("BAN_MEMBERS"))
+		if (!message.guild.me.hasPermission("KICK_MEMBERS"))
 			return message.channel.send(
-				"**I Dont Have The Permissions To Ban Users! - [BAN_MEMBERS]**"
+				"**I Dont Have The Permissions To Kick Users! - [KICK_MEMBERS]**"
 			);
 		let modlog = message.guild.channels.cache.find((channel) => {
 			return channel.name && channel.name.includes("t-modlog");

@@ -10,9 +10,13 @@ module.exports = {
 	description: "Updates the channel slowmode.",
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
+		if (!message.guild.me.hasPermission("BAN_MEMBERS"))
+			return message.channel.send(
+				"**I Dont Have The Permissions To Ban Users! - [BAN_MEMBERS]**"
+			);
 		const userID = args[0];
 
-		const reason = args.slice(1).join(" ");
+		var reason = args.slice(1).join(" ");
 
 		if (!userID) return message.channel.send("Please insert a valid user ID.");
 

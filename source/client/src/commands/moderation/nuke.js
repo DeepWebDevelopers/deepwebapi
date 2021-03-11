@@ -3,10 +3,15 @@ module.exports = {
 	name: "nuke",
 	minArgs: 0,
 	maxArgs: 0,
-	cooldown: "30s",
+	requiredPermissions: ["MANAGE_CHANNELS"],
+	cooldown: "3s",
 	description: "Deletes the channel and recreates it.",
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
+		if (!message.guild.me.hasPermission("MANAGE_CHANNELS"))
+			return message.channel.send(
+				"**I Dont Have The Permissions To Delete Channels! - [MANAGE_CHANNELS]**"
+			);
 		const msg = await message.channel.send(
 			"Are you sure you want to nuke this channel? This Action cannot be undone!"
 		);
@@ -20,7 +25,11 @@ module.exports = {
 		};
 
 		msg
-			.awaitReactions(filter, { max: 1, time: 60000, errors: ["time"] })
+			.awaitReactions(filter, {
+				max: 1,
+				time: 60000,
+				errors: ["time"],
+			})
 			.then(async (reaction) => {
 				if (reaction.first().emoji.name === "✅") {
 					await message.channel.send("**TACTICAL NUKE INCOMING!**"); // this is optional, you can delete this if you want
@@ -33,6 +42,62 @@ module.exports = {
 						channel.delete(); // now that we put the cloned channel where need it to be, we can delete the original
 						channel2.send("**NUKED CHANNEL SUCCESSFULLY**"); // sends a message to confirm that it was able to nuke it
 						channel2.send("https://giphy.com/gifs/80s-akira-oQtO6wKK2q0c8"); // sends an anime nuke gif
+
+						const mongo = require("../../mongo");
+						mongo().then(async (mongoose) => {
+							try {
+								//? logging
+								const Logs = require("../../db/guild/logging");
+								var d = new Date(Date.now());
+								const guildDB = await Logs.findOne(
+									{
+										guildID: message.guild.id,
+									},
+									async (err, guild) => {
+										if (err) console.error(err);
+
+										if (!guild) {
+											return message.reply(
+												`There is no modlog system setup for Terminal. Please set one up for my command functions. Run: **${prefix}setlogs**`
+											);
+										}
+									}
+								);
+
+								const modlog = message.guild.channels.cache.get(
+									guildDB.logChannelID
+								);
+
+								// try {
+								// 	if(!moglog) return
+								// } catch {}
+
+								let modlogEmbed = new Discord.MessageEmbed()
+									.setTitle("A Channel has been Nuked!")
+									.setAuthor("Terminal Modlog", message.client.user.avatarURL())
+									.setAuthor("Terminal Modlog", message.client.user.avatarURL())
+									.addFields(
+										{
+											name: "New Channel created:",
+											value: `Name: ${channel2}`,
+										},
+										{
+											name: "Ran by:",
+											value: `Name: ${message.author.tag} (${message.author.id})`,
+										},
+										{ name: "Time", value: `Action date: ${d}` }
+									)
+									.setTimestamp()
+									.setColor("RED");
+
+								modlog.send(modlogEmbed).catch((err) => {
+									return console.log(err);
+								});
+							} catch (err) {
+								console.log(err);
+								message.channel.send(`An error occurred: \`${err.message}\``);
+							}
+						});
 					});
 				} else if (reaction.first().emoji.name === "❌") {
 					const embed = new Discord.MessageEmbed()
@@ -55,3 +120,49 @@ module.exports = {
 			});
 	},
 };
+
+// const mongo = require("../../mongo");
+// await mongo().then(async (mongoose) => {
+// 	try {
+// 		//? logging
+// 		const Logs = require("../../db/guild/logging");
+// 		var d = new Date(Date.now());
+// 		const guildDB = await Logs.findOne(
+// 			{
+// 				guildID: message.guild.id,
+// 			},
+// 			async (err, guild) => {
+// 				if (err) console.error(err);
+
+// 				if (!guild) {
+// 					return message.reply(
+// 						`There is no modlog system setup for Terminal. Please set one up for my command functions. Run: **${prefix}setlogs**`
+// 					);
+// 				}
+// 			}
+// 		);
+// 		let modlogEmbed = new Discord.MessageEmbed()
+// 	.setTitle("A Channel has been Nuked!")
+// 	.addFields(
+// 		{ name: "Channel nuked:", value: `Name: ${channel}` },
+// 		{
+// 			name: "New Channel created:",
+// 			value: `Name: ${channel2}`,
+// 		},
+// 		{
+// 			name: "Ran by:",
+// 			value: `Name: ${message.author.tag} (${message.author.id})`,
+// 		},
+// 		{ name: "Time", value: `Action date:${d}` }
+// 	)
+// 	.setTimestamp();
+
+// modlog.send(modlogEmbed).catch((e) => {
+// 	return;
+// });
+
+// 	} catch (err) {
+// 		console.log(err);
+// 		message.channel.send(`An error occurred: \`${err.message}\``);
+// 	}
+// });

@@ -4,4 +4,4 @@ let Schema = new mongoose.Schema({
 	id: String,
 });
 
-module.exports = mongoose.model("blacklist_datas", Schema);
+module.exports = mongoose.model("blacklist_users", Schema);

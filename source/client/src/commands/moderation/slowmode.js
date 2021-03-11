@@ -8,6 +8,10 @@ module.exports = {
 	description: "Updates the channel slowmode.",
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
+		if (!message.guild.me.hasPermission("MANAGE_CHANNELS"))
+			return message.channel.send(
+				"**I Dont Have The Permissions To edit channels! - [MANAGE_CHANNELS]**"
+			);
 		const { channel } = message;
 
 		if (args.length < 1) {

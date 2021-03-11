@@ -15,6 +15,10 @@ module.exports = {
 	description: "Allow user to chat in channels",
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
+		if (!message.guild.me.hasPermission("MANAGE_ROLES"))
+			return message.channel.send(
+				"**I Dont Have The Permissions To remove roles! - [MANAGE_ROLES]**"
+			);
 		let target = message.mentions.members.first();
 		try {
 			var targetId = target.id;
@@ -62,7 +66,7 @@ module.exports = {
 
 						if (!guild) {
 							return message.reply(
-								"There is no modlog system setup for Terminal. Please set one up for my command functions. Run: `setlogs`"
+								`There is no modlog system setup for Terminal. Please set one up for my command functions. Run: **${prefix}setlogs**`
 							);
 						}
 					}

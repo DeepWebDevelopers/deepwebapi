@@ -55,7 +55,7 @@ module.exports = {
 		const modlog = message.guild.channels.cache.get(guildDB.logChannelID);
 
 		const logEmbed = new Discord.MessageEmbed()
-			.setColor("BLUE")
+			.setColor("BLURPLE")
 			.setTitle("Warnings cleared for user")
 			.setAuthor("Automated Terminal message", message.client.user.avatarURL())
 			.addFields(
