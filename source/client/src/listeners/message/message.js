@@ -21,27 +21,36 @@ module.exports = (client, Channel) => {
 	// Supporting the leveling system.
 	let recentMsg = new Set();
 	client.on("message", async (message, prefix) => {
+		if (!message.channel.permissionsFor(client.user).has("SEND_MESSAGES"))
+			return;
+		if (!message.channel.permissionsFor(client.user).has("ADMINISTRATOR")) {
+			return message.channel.send(
+				"I dont have ADMINISTRATOR PERMISSIONS. Please give them to me for my commands to work..."
+			);
+		}
 		try {
 			// ? Blacklisting system
 
 			const blacklist = require("../../db/blacklist");
 			// path: '../../commands/owner/blacklist.js'
-			let blacklisted_User = await blacklist.findOne({ id: message.author.id });
+			let blacklisted_User = await blacklist.findOne({
+				id: message.author.id,
+			});
 			if (blacklisted_User) return;
 		} finally {
 			//? Util Checks
 
 			// let prefix = config.prefix;
+
 			if (message.content === "terminal") {
 				message.channel.send(
-					`Hello, my prefix in this server is \`${prefix}\`. To see a list of commands run \`${prefix}help\``
+					`Hello **${message.author.tag}**. My defult prefix is **${config.prefix}.**To check the current server prefix run: **prefix**`
 				);
 			}
 			if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) {
-				message.channel
-					.send(oneLine`Ping me? For help with commands:\`${prefix}commands\` or \`${prefix}help\` for a list of commands!
-				To get support run: \`${prefix}support\`
-				`);
+				message.reply(
+					oneLine`Ping me? For support run my **invite** command. If you want to get information on a command, use: **help <command>**.`
+				);
 			}
 
 			//! Other Message Checks

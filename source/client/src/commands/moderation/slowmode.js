@@ -1,9 +1,9 @@
 module.exports = {
 	name: "slowmode",
-	aliases: ["lockdown"],
-	minArgs: 0,
-	maxArgs: 0,
+	minArgs: 1,
+	maxArgs: -1,
 	cooldown: "5s",
+	expectedArgs: "<duration>",
 	permissions: ["MANAGE_CHANNELS"],
 	description: "Updates the channel slowmode.",
 	category: "Moderation",
@@ -30,7 +30,15 @@ module.exports = {
 			);
 			return;
 		}
+
+		if (duration >= 21600) {
+			return message.reply(
+				"You have to set a duration lower than `21600`(6 hours.)"
+			);
+		}
 		channel.setRateLimitPerUser(duration, args.join(" "));
-		message.reply(`The slowmode for this channel has been set to ${duration}`);
+		message.reply(
+			`The slowmode for this channel has been set to **${duration}**`
+		);
 	},
 };

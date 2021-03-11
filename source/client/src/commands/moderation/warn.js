@@ -134,7 +134,7 @@ module.exports = {
 					.then((DM) => {
 						DM.send(DMEmbed).then(() => {
 							const success = new Discord.MessageEmbed()
-								.setColor("YELLOW")
+								.setColor("PINK")
 								.setDescription(
 									`Successfully warned **${newWarn.warnTag}** for **${warning.reason}**`
 								)
@@ -145,7 +145,7 @@ module.exports = {
 							});
 
 							const modlogEmbed = new Discord.MessageEmbed()
-								.setColor("RANDOM")
+								.setColor("YELLOW")
 								.setTitle("Member warned")
 								.setAuthor("Terminal Modlog", message.client.user.avatarURL())
 								.setTimestamp()

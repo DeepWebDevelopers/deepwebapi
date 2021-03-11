@@ -12,7 +12,7 @@ module.exports = {
 	category: "Information",
 	run: async ({ message, args, text, client, prefix, instance }) => {
 		if (args[0] === "version") {
-			const version = "0.0.1";
+			const version = "0.0.4";
 
 			const versionEmbed = new Discord.MessageEmbed()
 				.setColor("RANDOM")

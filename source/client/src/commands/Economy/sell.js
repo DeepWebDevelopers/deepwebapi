@@ -185,7 +185,7 @@ module.exports = {
 				let chosenItem = args.slice(0).join(" ");
 
 				for (let i = 0; i < Items.length; i++) {
-					if (chosenItem === Items[i].name) {
+					if (chosenItem === Items[i].name.toLowerCase()) {
 						await profileSchema.findOneAndUpdate(
 							{
 								userId: userId,

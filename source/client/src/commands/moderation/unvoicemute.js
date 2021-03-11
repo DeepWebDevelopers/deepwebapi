@@ -13,6 +13,10 @@ module.exports = {
 	testOnly: true,
 	category: "Moderation",
 	run: async ({ message, args, text, client, prefix, instance }) => {
+		if (!message.guild.me.hasPermission("MUTE_MEMBERS"))
+			return message.channel.send(
+				"**I Dont Have The Permissions To mute Users! - [MUTE_MEMBERS]**"
+			);
 		let modlog = message.guild.channels.cache.find((channel) => {
 			return channel.name && channel.name.includes("t-modlog");
 		});
