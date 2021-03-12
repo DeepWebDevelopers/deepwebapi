@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const guildSettings = require("../../db/guild/guildSettings");
 const logChannel = require("../../db/guild/logging");
 const muterole = require("../../db/guild/muterole");
 module.exports = {

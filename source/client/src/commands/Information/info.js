@@ -49,6 +49,10 @@ module.exports = {
 				.setThumbnail(message.client.user.avatarURL())
 				.addFields(
 					{
+						name: "Support Server",
+						value: `[Click me to join!](${config.bserver})`,
+					},
+					{
 						name: "Github",
 						value:
 							"Post an [issue](https://github.com/DeepWebDevelopers/Terminal/issues) on my github repo.",

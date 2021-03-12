@@ -9,6 +9,10 @@ module.exports = {
 	description: "Invite link to add the bot to a server",
 	category: "Information",
 	run: async ({ message, args, text, client, prefix, instance }) => {
+		if (!message.guild.me.hasPermission("ADD_REACTIONS"))
+			return message.reply(
+				`I seams I dont have permissions to react. [link](${config.bserver})`
+			);
 		const embed = new Discord.MessageEmbed()
 			.setColor("RANDOM")
 			.setTitle("[Terminal OAUTH2 Invite Link]")
@@ -16,7 +20,7 @@ module.exports = {
 			.setDescription(`[Terminal Support Server](${config.bserver})`)
 			.setTimestamp();
 		try {
-			message.react("✅");
+			await message.react("✅");
 			message.author.send(embed);
 			message
 				.reply("Check your dm's for my invite link")

@@ -33,10 +33,12 @@ module.exports = {
 			}
 		);
 
-		const logChannel = message.guild.channels.cache.get(guildDB.logChannelID);
-		if (!logChannel) {
-			return message.reply(nologtext);
+		try {
+			const logChannel = message.guild.channels.cache.get(guildDB.logChannelID);
+		} finally {
+			const logChannel = message.guild.channels.cache.get(guildDB.logChannelID);
 		}
+		const logChannel = message.guild.channels.cache.get(guildDB.logChannelID);
 
 		try {
 			var targetId = args[0];

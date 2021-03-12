@@ -21,13 +21,17 @@ module.exports = (client, Channel) => {
 	// Supporting the leveling system.
 	let recentMsg = new Set();
 	client.on("message", async (message, prefix) => {
-		if (!message.channel.permissionsFor(client.user).has("SEND_MESSAGES"))
+		if (
+			message.author.id === client.user.id ||
+			message.author.bot ||
+			message.channel.type === "dm"
+		)
 			return;
-		if (!message.channel.permissionsFor(client.user).has("ADMINISTRATOR")) {
-			return message.channel.send(
-				"I dont have ADMINISTRATOR PERMISSIONS. Please give them to me for my commands to work..."
-			);
+
+		if (!message.channel.permissionsFor(client.user).has("SEND_MESSAGES")) {
+			return;
 		}
+
 		try {
 			// ? Blacklisting system
 
@@ -171,7 +175,7 @@ module.exports = (client, Channel) => {
 };
 
 module.exports.config = {
-	displayName: "Message Eco",
+	displayName: "Message System",
 	dbName: "Terminalmod",
 	loadDBFirst: true,
 };
