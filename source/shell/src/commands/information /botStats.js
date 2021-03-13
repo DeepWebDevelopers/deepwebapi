@@ -22,8 +22,8 @@ module.exports = class Command extends commando.Command {
 			argsType: "multiple",
 			guildOnly: true,
 			throttling: {
-				usages: 1,
-				duration: 60,
+				usages: 2,
+				duration: 180,
 			},
 		});
 	}
@@ -35,6 +35,13 @@ module.exports = class Command extends commando.Command {
 			const duration = moment
 				.duration(message.client.uptime)
 				.format(" D [days], H [hrs], m [mins], s [secs]");
+
+			if (!message.client.shards)
+				return message
+					.reply("Sorry shards are offline at the moment. Try again later!")
+					.then((m) => {
+						m.delete({ timeout: 3908 });
+					});
 			const promises = [
 				message.client.shard.fetchClientValues("guilds.cache.size"),
 				message.client.shard.broadcastEval(

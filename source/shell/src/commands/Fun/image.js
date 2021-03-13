@@ -1,15 +1,31 @@
 const cheerio = require("cheerio");
-const Discord = require("discord.js");
 const request = require("request");
-module.exports = {
-	name: "image",
-	aliases: ["i"],
-	minArgs: 1,
-	maxArgs: -1,
-	expectedArgs: "<query>",
-	description: "Random image from a search",
-	category: "Fun & Games",
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "image",
+			aliases: ["images", "img"],
+			group: "fun",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "image_fun_command",
+			description: "Search and get any random image",
+			argsType: "multiple",
+			guildOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+
+		if (!args[0]) return message.reply("Give me an image to seach!");
+
 		//Combine the command arguments together
 		let imagesearch = args.slice(0).join(" ");
 
@@ -28,7 +44,7 @@ module.exports = {
 			request(options, function (error, response, responseBody) {
 				if (error) return;
 
-				$ = cheerio.load(responseBody);
+				let $ = cheerio.load(responseBody);
 
 				//make a array with the image urls
 				var links = $(".image a.link");
@@ -55,5 +71,5 @@ module.exports = {
 
 		//call the function
 		image(message);
-	},
+	}
 };

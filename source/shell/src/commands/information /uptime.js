@@ -19,9 +19,9 @@ module.exports = class Command extends commando.Command {
 		});
 	}
 	async run(message, args) {
-		var seconds = parseInt((client.uptime / 1000) % 60),
-			minutes = parseInt((client.uptime / (1000 * 60)) % 60),
-			hours = parseInt((client.uptime / (1000 * 60 * 60)) % 24);
+		var seconds = parseInt((message.client.uptime / 1000) % 60),
+			minutes = parseInt((message.client.uptime / (1000 * 60)) % 60),
+			hours = parseInt((message.client.uptime / (1000 * 60 * 60)) % 24);
 		// prettier-ignore
 		hours = (hours < 10) ? ('0' + hours) : hours;
 		// prettier-ignore

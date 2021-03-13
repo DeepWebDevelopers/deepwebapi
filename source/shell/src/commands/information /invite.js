@@ -12,7 +12,7 @@ module.exports = class Command extends commando.Command {
 			memberName: "invite_command",
 			description: "sends the bots support invite and guild invite.",
 			argsType: "multiple",
-			guildOnly: true,
+			guildOnly: false,
 			throttling: {
 				usages: 1,
 				duration: 45,

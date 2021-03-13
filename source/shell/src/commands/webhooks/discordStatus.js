@@ -1,18 +1,31 @@
-const Discord = require("discord.js");
 const canvacord = require("canvacord").Canvas;
 const axios = require("axios");
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class DiscordStatusCommand extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "discordstatus",
+			aliases: ["dstatus"],
+			group: "webhooks",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "discord_status_command",
+			description: "shows the discord api stats",
+			argsType: "multiple",
+			guildOnly: true,
+			throttling: {
+				usages: 1,
+				duration: 120,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
 
-module.exports = {
-	name: "dstatus",
-	aliases: ["discordstatus"],
-	minArgs: 0,
-	maxArgs: 0,
-	cooldown: "30s",
-	description: "Gets the latest information about Discord status.",
-	category: "Imformation",
-	run: async ({ message, args, text, client, prefix, instance }) => {
 		const url = "https://discordstatus.com/api/v2/incidents.json";
-		const ping = Math.round(client.ws.ping);
+		const ping = Math.round(this.client.ws.ping);
 
 		axios.get(url).then(async function (res) {
 			const incident = res.data.incidents[0];
@@ -20,7 +33,7 @@ module.exports = {
 
 			msg += `**Incident: **${incident.name} \`(${incident.id})\`\n`;
 			msg += `**Status: ** ${incident.status}\n`;
-			msg += `**URL: ** [Link](${incident.shortlink})\n`;
+			msg += `**Source_URL: ** [Link](${incident.shortlink})\n`;
 			msg += `**Started: ** ${incident.created_at}\n`;
 			msg += `**Latest Update: ** ${incident.updated_at}\n`;
 
@@ -33,7 +46,7 @@ module.exports = {
 			}
 
 			const embed = new Discord.MessageEmbed()
-				.setColor("RANDOM")
+				.setColor("BLURPLE")
 				.setTitle("Discord Status Updates")
 				.setDescription(
 					`**API Latency:** ${ping} ms\n\n**Latest incident**\n${msg}`
@@ -42,5 +55,5 @@ module.exports = {
 				.setTimestamp();
 			return message.channel.send(embed);
 		});
-	},
+	}
 };

@@ -76,6 +76,20 @@ module.exports = class Command extends commando.Command {
 					if (err) console.error(err);
 
 					if (!guild) {
+						let mongoose = require("mongoose");
+						const newLogData = new Logs({
+							_id: mongoose.Types.ObjectId(),
+							guildID: message.guild.id,
+							guildName: message.guild.name,
+							logChannelID: null,
+							logChannelName: null,
+						});
+
+						await newLogData
+							.save()
+							.then((result) => console.log(result))
+							.catch((err) => console.error(err));
+
 						return message.reply(
 							`There is no modlog system setup for Terminal. Please set one up for my command functions. Run: **${prefix}setlogs**`
 						);
@@ -84,7 +98,15 @@ module.exports = class Command extends commando.Command {
 			);
 
 			const modlog = message.guild.channels.cache.get(guildDB.logChannelID);
-
+			if (!modlog) {
+				return message
+					.reply(
+						`Sorry I cant find your mod log channen in my db. Please create one using **${prefix}setlogs** then run this command again!`
+					)
+					.then((m) => {
+						m.delete({ timeout: 5000 });
+					});
+			}
 			const modlogEmbed = new Discord.MessageEmbed()
 				.setColor("RED")
 				.setTitle("Member banned")
@@ -120,13 +142,13 @@ module.exports = class Command extends commando.Command {
 			const success = new Discord.MessageEmbed()
 				.setColor("RANDOM")
 				.setDescription(
-					`Successfully banned **${memberTag}** for **${data.reason}**`
+					`Successfully banned **${memberTag}** for **${data.reason}** \n\nAction logged in <#${modlog.id}>`
 				)
 				.setFooter("Thank you for using Terminal!")
 				.setTimestamp();
 			message.channel.send(success);
 		} catch (err) {
-			// console.log(err);
+			console.log(err);
 			// message.channel.send(`An error occurred: \`${err.message}\``);
 			return;
 		}

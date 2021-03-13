@@ -1,14 +1,28 @@
 const got = require("got");
 const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class MemeCommand extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "meme",
+			aliases: ["memes"],
+			group: "fun",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "meme_fun_command",
+			description: "Send a random meme from r/memes",
+			argsType: "multiple",
+			guildOnly: true,
+			throttling: {
+				usages: 4,
+				duration: 45,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
 
-module.exports = {
-	name: "meme",
-	minArgs: 0,
-	maxArgs: 0,
-	cooldown: "5s",
-	description: "Get a random meme",
-	category: "Fun & Games",
-	run: async ({ message, args, text, client, prefix, instance }) => {
 		const embed = new Discord.MessageEmbed();
 		try {
 			got("https://www.reddit.com/r/memes/random/.json").then((response) => {
@@ -30,6 +44,7 @@ module.exports = {
 			});
 		} catch (error) {
 			console.log(error);
+			return;
 		}
-	},
+	}
 };
