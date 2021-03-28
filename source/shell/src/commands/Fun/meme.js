@@ -37,6 +37,11 @@ module.exports = class MemeCommand extends commando.Command {
 				embed.addField(`${memeTitle}`, `[View thread](${memeUrl})`);
 				embed.setImage(memeImage);
 				embed.setColor("RANDOM");
+				embed.setAuthor(
+					"Terminal Fun Commands",
+					message.client.user.avatarURL()
+				);
+
 				embed.setFooter(
 					`👍 ${memeUpvotes} 👎 ${memeDownvotes} 💬 ${memeNumComments}`
 				);

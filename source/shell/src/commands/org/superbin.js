@@ -1,16 +1,31 @@
-const { Client, Message, MessageEmbed } = require("discord.js");
 const sourcebin = require("sourcebin_js");
-module.exports = {
-	name: "sbin",
-	aliases: ["sourceup", "superbin"],
-	// expectedArgs: "<code>",
-	cooldown: "20s",
-	description: "Checks how long the bot has been running for.",
-	category: "Org",
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "sbin",
+			aliases: ["sourceup", "superbin"],
+			group: "org",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "super_bin_command",
+			description: "upload your text to a source bin",
+			argsType: "multiple",
+			guildOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+
 		if (!args.join(" "))
 			return message
-				.reply(`Incorrect Syntax. Exmaple: ${prefix}`)
+				.reply(`Incorrect Syntax. Exmaple: ${prefix}<code/text>`)
 				.then((m) => m.delete({ timeout: 4000 }));
 
 		sourcebin
@@ -27,5 +42,5 @@ module.exports = {
 			.catch((e) => {
 				message.channel.send(`Error, try again later`);
 			});
-	},
+	}
 };

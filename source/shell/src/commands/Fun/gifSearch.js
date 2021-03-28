@@ -19,7 +19,7 @@ module.exports = class GifCommand extends Command {
 			args: [
 				{
 					key: "text",
-					prompt: ":thinking: What gif would you like to watch?",
+					prompt: ":thinking: What gif would you like to view?",
 					type: "string",
 					validate: (text) => text.length < 50,
 				},

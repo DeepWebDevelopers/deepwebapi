@@ -1,20 +1,32 @@
-const Discord = require("discord.js")
 const canvacord = require("canvacord").Canvas
-module.exports = {
-    name: 'hexcolor',
-    minArgs: 1,
-    maxArgs: 1,
-    expectedArgs: "<hex value>",
-    description: "Convert hex to color.",
-    category: "Images",
-    run: async ({
-        message,
-        args,
-        text,
-        client,
-        prefix,
-        instance
-    }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "hexcolor",
+			// aliases: [""],
+			group: "images",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "hexcolor_img_command",
+			description: "Convert hex to color.",
+			argsType: "multiple",
+			guildOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+
+        let text = args.join(" ")
+        
+        if(!text) return message.reply("No arguments passed for convertion.")
+
         if (text.includes("#")) {
             let data = canvacord.color(text, true, 500, 1000)
             let att = new Discord.MessageAttachment()

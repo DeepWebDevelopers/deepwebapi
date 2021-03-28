@@ -57,7 +57,7 @@ module.exports = class Command extends commando.Command {
 
 				//Make it pretty
 				let embed = new Discord.MessageEmbed()
-					.setColor("RANDOM")
+					.setColor("#2F3136")
 					.setTitle(`Showing random image for: "${imagesearch}"`)
 					.setTimestamp()
 					.setImage(urls[Math.floor(Math.random() * urls.length)])

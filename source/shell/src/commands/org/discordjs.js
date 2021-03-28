@@ -1,15 +1,28 @@
 const fetch = require("node-fetch");
-module.exports = {
-	name: "docs",
-	aliases: ["docjs", "discordjs"],
-	requiredPermissions: ["MANAGE_ROLES"],
-	minArgs: 1,
-	maxArgs: -1,
-	expectedArgs: "<search> ",
-	description:
-		"Quickly fetches data from the discordjs docs and sends them to the channel.",
-	category: "Org",
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "docs",
+			aliases: ["docsjs"],
+			group: "org",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "discord_js_docs_command",
+			description: "search the discord js docs.",
+			argsType: "multiple",
+			guildOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+
 		var [query, branch] = args;
 
 		if (!query) return message.channel.send("Please include a search query!");
@@ -29,5 +42,5 @@ module.exports = {
 			.catch(() => {
 				message.channel.send("Couldn't fetch docs!");
 			});
-	},
+	}
 };

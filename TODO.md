@@ -2,11 +2,13 @@
 
 > [] Make eco money random
 
+> [] Finish UTIL command convertion
+
 > [] Add a settings list that shows user all database stuff
 
 > [DONE] Fix moderation command for modlog system.
 
-> [] fix permissions checks for all commands
+> [DONE] fix permissions checks for all commands
 
 > [DONEISH] add database to moderation commands.
 

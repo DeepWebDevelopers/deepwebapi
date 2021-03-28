@@ -1,13 +1,31 @@
 const process = require("child_process");
-module.exports = {
-	name: "eval",
-	minArgs: 1,
-	maxArgs: -1,
-	expectedArgs: "<command to run>",
-	description: "Run a child process in Discord",
-	category: "Bot Owner",
-	ownerOnly: true,
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "eval:",
+			// aliases: [""],
+			group: "owner",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "eval_owner_command",
+			description: "eval something",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+		
+		if(!args) return message.reply("You gave me nothing to evaluate!")
+
 		//Execute command specified and send the result
 		process.exec(args.join(" "), (error, stdout) => {
 			let response = error || stdout;
@@ -21,5 +39,5 @@ module.exports = {
 		});
 
 		return;
-	},
+	}
 };

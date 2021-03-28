@@ -9,7 +9,7 @@ const Discord = require("discord.js");
 const { Intents } = require("discord.js");
 
 const client = new Commando.Client({
-	owner: "370637638820036608",
+	owner: ["370637638820036608"],
 	commandPrefix: "?",
 	invite: "https://discord.gg/NbqBQbaejS",
 	disableMentions: "everyone",
@@ -34,6 +34,7 @@ const client = new Commando.Client({
 	ws: { intents: [Intents.ALL, "GUILD_MEMBERS"] },
 });
 
+// Command Structure and folders
 client.registry
 	.registerDefaultTypes({})
 	.registerGroups([
@@ -54,6 +55,7 @@ client.registry
 		["util", "..."],
 		["tickets", "..."],
 		["webhooks", "..."],
+		["creation", "..."],
 		//	["", ""],
 	])
 	.registerDefaultGroups()
@@ -67,30 +69,33 @@ client.registry
 	})
 	.registerCommandsIn(path.join(__dirname, "commands"));
 
-//! Maps
+//! Maps for other utils
 client.queue = new Map();
 const { GiveawayCreator, DropCreator } = require("discord-giveaway");
 const Creator = new GiveawayCreator(client, config.db);
 client.giveaways = Creator;
+//? Coming soon
 // client.snipes = new Map();
 // client.editsnipes = new Map();
-//? Commando Database Struct
+
+//? Commando Database custom Struct
 const { mongo } = require("mongoose");
 const mongoose = require("../config/mongo");
 const MongoClient = require("mongodb").MongoClient;
 const MongoDBProvider = require("commando-provider-mongo").MongoDBProvider;
+// mongo config for commando client
 client
 	.setProvider(
 		MongoClient.connect(config.db, {
 			useUnifiedTopology: true,
-		}).then((client) => new MongoDBProvider(client, "dev-build"))
+		}).then(async (client) => await new MongoDBProvider(client, "dev-build"))
 	)
 	.catch(console.error);
 // passins the mongo file proporties
 client.mongoose = require("../config/mongo");
 // Connects to mongo
 client.mongoose.init();
-
+// Meesage checks
 client.on("message", async (message) => {
 	const Setprefix = message.guild
 		? message.guild.commandPrefix
@@ -105,6 +110,7 @@ loadEvents(client);
 //events
 
 //! When the bot joins a new guild, it will send this message to a random channel.
+// Will be moving this into even file soon.
 client.on("guildCreate", (guild) => {
 	const channel = guild.channels.cache.find(
 		(channel) =>
@@ -151,7 +157,7 @@ client.on("warn", (info) => console.log(info));
 client.on("error", console.error);
 // connects to discord client token
 
-//! function to handler sharding
+//! function to handle sharding
 async function start() {
 	return await client.login(config.token);
 }

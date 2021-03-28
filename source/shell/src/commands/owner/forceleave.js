@@ -1,14 +1,28 @@
 const Discord = require("discord.js");
-
-module.exports = {
-	name: "forceleave",
-	aliases: ["forcedestroy", "superkill"],
-	minArgs: 0,
-	maxArgs: 0,
-	description: "Forces the bot to leave a guild.",
-	category: "Bot Owner",
-	ownerOnly: true,
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "forceleave",
+			aliases: ["forcedestroy", "superkill"],
+			group: "owner",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "force_kill_proccess_command",
+			description: "forces the bot to leave a discord server.",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+	
 		const msg = await message.channel.send(
 			"Are You Sure You Want To Remove The Bot From This Server?"
 		);
@@ -52,5 +66,5 @@ module.exports = {
 					.setColor(`RED`);
 				return message.channel.send(embed);
 			});
-	},
+	}
 };

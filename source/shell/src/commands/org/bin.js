@@ -1,15 +1,28 @@
 const { MessageEmbed } = require("discord.js");
 const Discord = require("discord.js");
-module.exports = {
-	name: "soucebin",
-	aliases: ["bin", "codebin"],
-	minArgs: 0,
-	maxArgs: 0,
-	expectedArgs: "<query>",
-	cooldown: "10s",
-	description: "Checks how long the bot has been running for.",
-	category: "Org",
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "soucebin",
+			aliases: ["bin", "codebin"],
+			group: "org",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "source_bin_command",
+			description: "Sends a text/code bin to the channel.",
+			argsType: "multiple",
+			guildOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+	
 		const embed = new MessageEmbed()
 
 			.setTitle("Why Use a Paste Bin?")
@@ -29,5 +42,5 @@ module.exports = {
 			);
 
 		message.channel.send(embed);
-	},
+	}
 };

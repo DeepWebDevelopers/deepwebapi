@@ -1,17 +1,30 @@
-const Discord = require("discord.js");
 const npm = require("search-npm-registry");
 const moment = require("moment");
 const { stripIndents } = require("common-tags");
-module.exports = {
-	name: "npm",
-	aliases: ["nodedocs", "npmsr"],
-	minArgs: 1,
-	maxArgs: -1,
-	expectedArgs: "<query>",
-	cooldown: "10s",
-	description: "Checks how long the bot has been running for.",
-	category: "Org",
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "npm",
+			aliases: ["nodedocs", "npmsr"],
+			group: "org",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "npm_search_command",
+			description: "search the npm website for packages",
+			argsType: "multiple",
+			guildOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+	
 		// Variables
 		const argsNPM = args.join(" ");
 
@@ -56,5 +69,5 @@ module.exports = {
         `);
 			return message.channel.send(em);
 		})();
-	},
+	}
 };

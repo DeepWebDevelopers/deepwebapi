@@ -29,6 +29,7 @@ module.exports = class TickleCommand extends commando.Command {
 		let user = message.guild.member(message.mentions.users.first());
 		const embed = new Discord.MessageEmbed()
 			.setColor("RANDOM")
+			.setAuthor("Terminal Fun Commands", message.client.user.avatarURL())
 			.setTitle(
 				`${message.mentions.users.first().username}, you got tickled by ${
 					message.author.username

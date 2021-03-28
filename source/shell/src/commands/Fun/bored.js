@@ -33,6 +33,7 @@ module.exports = class Command extends commando.Command {
 
 			const embed = new Discord.MessageEmbed()
 				.setColor("RANDOM")
+				.setAuthor("Terminal Fun Commands", message.client.user.avatarURL())
 				.setTitle("Are you bored?")
 				.setDescription(
 					`**Activity:** ${activity}\n**Type:** ${type}\n**Participants:** ${participants}\n**Price:** ${price} out of 10\n**Accessibility:** ${accessibility} out of 10`

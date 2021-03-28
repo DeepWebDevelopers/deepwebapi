@@ -1,12 +1,28 @@
 const Discord = require("discord.js");
-module.exports = {
-	name: "createtextchannel",
-	aliases: ["ctc"],
-	minArgs: 0,
-	maxArgs: 0,
-	description: "Create a text channel",
-	category: "Moderation",
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "createtextchannel",
+			aliases: ["ctc"],
+			group: "creation",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "createtextchannel_creation_command",
+			description: "creates a text channel",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+
 		if (!message.member.hasPermission("MANAGE_CHANNELS", (explicit = true))) {
 			const permEmbed = new Discord.MessageEmbed()
 				.setColor("RANDOM")
@@ -300,5 +316,5 @@ module.exports = {
 				"There as been an error. Make sure you enter all steps properly. `If not I will cancel all steps`"
 			);
 		}
-	},
+	}
 };

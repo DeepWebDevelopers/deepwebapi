@@ -1,12 +1,28 @@
-module.exports = {
-	name: "kill",
-	aliases: ["destroy"],
-	minArgs: 0,
-	maxArgs: 0,
-	description: "Shut down the bot, restart if hosted on heroku",
-	category: "Bot Owner",
-	ownerOnly: true,
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "kill",
+			aliases: ["destroy"],
+			group: "owner",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "kill_bot_command",
+			description: "shuts down the bot",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+	
 		//Filter the person to respond to the message author, me
 		const filter = (msg) => msg.author.id === message.author.id;
 		const options = {
@@ -43,5 +59,5 @@ module.exports = {
 				process.exit();
 			}, 3000);
 		}
-	},
+	}
 };

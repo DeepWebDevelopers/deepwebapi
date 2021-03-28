@@ -1,8 +1,10 @@
 const commando = require("discord.js-commando");
+const Discord = require("discord.js");
 module.exports = class Command extends commando.Command {
 	constructor(client) {
 		super(client, {
 			name: "ping",
+			aliases: ["pong"],
 			group: "information",
 			userPermissions: ["SEND_MESSAGES"],
 			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
@@ -21,11 +23,26 @@ module.exports = class Command extends commando.Command {
 		// .then((m) => m.delete({ timeout: 3000 }));
 		const msglate = m.createdTimestamp - message.createdTimestamp;
 		const msguser = message.client.users.cache.get(message.author.id);
-		message.channel.send(
-			`Pong! 🏓 Message latency is ${msglate} ms, Discord API latency is ${Math.round(
-				message.client.ws.ping
-			)} ms!`
-		);
+		// message.channel.send(
+		// 	`Pong! 🏓 Message latency is ${msglate} ms, Discord API latency is ${Math.round(
+		// 		message.client.ws.ping
+		// 	)} ms!`
+		// );
+		let embed = new Discord.MessageEmbed()
+			.setTitle("Terminal Ping")
+			.addField("Message Latency", ` 🏓 Message latency is ${msglate} ms`)
+			.setThumbnail(message.guild.iconURL())
+			.addField(
+				"Discord API Latency",
+				`🤖 Discord API latency is ${Math.round(message.client.ws.ping)} ms!`
+			)
+			.setTimestamp()
+			.setColor("#2F3136")
+			.setFooter(
+				"Thanks for using Terminal!",
+				message.author.displayAvatarURL()
+			);
+		message.channel.send(embed);
 
 		if (msglate >= 5000) {
 			await msguser.send(

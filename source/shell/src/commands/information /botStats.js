@@ -36,12 +36,12 @@ module.exports = class Command extends commando.Command {
 				.duration(message.client.uptime)
 				.format(" D [days], H [hrs], m [mins], s [secs]");
 
-			if (!message.client.shards)
-				return message
-					.reply("Sorry shards are offline at the moment. Try again later!")
-					.then((m) => {
-						m.delete({ timeout: 3908 });
-					});
+			// if (!message.client.shards)
+			// 	return message
+			// 		.reply("Sorry shards are offline at the moment. Try again later!")
+			// 		.then((m) => {
+			// 			m.delete({ timeout: 3908 });
+			// 		});
 			const promises = [
 				message.client.shard.fetchClientValues("guilds.cache.size"),
 				message.client.shard.broadcastEval(
@@ -62,7 +62,7 @@ module.exports = class Command extends commando.Command {
 					const botinfo = new Discord.MessageEmbed()
 						.setAuthor(message.client.user.username)
 						.setTitle("__**Stats:**__")
-						.setColor("#c28ada")
+						.setColor("#2F3136")
 						.addField(
 							"⏳ Mem Usage",
 							`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(
@@ -95,7 +95,9 @@ module.exports = class Command extends commando.Command {
 						);
 					message.channel.send(botinfo);
 				})
-				.catch(console.error);
+				.catch((error) => {
+					return console.log(error);
+				});
 		});
 	}
 };

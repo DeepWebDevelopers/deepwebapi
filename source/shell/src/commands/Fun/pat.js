@@ -28,6 +28,7 @@ module.exports = class Command extends commando.Command {
 			.setDescription(
 				`${message.author.username} pat's ${user}, What a cutie...❤`
 			)
+			.setAuthor("Terminal Fun Commands", message.client.user.avatarURL())
 			.setColor("RANDOM")
 			.setTimestamp()
 			.setImage(body.url);

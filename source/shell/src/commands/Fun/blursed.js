@@ -39,6 +39,10 @@ module.exports = class Command extends commando.Command {
 				//Put it all in an embed so it looks organized and pretty
 				embed.setTitle(`${memeTitle}`);
 				embed.setURL(`${memeUrl}`);
+				embed.setAuthor(
+					"Terminal Fun Commands",
+					message.client.user.avatarURL()
+				);
 				embed.setImage(memeImage);
 				embed.setColor("RANDOM");
 				embed.setFooter(

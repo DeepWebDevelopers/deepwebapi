@@ -164,6 +164,7 @@ module.exports = class Command extends commando.Command {
 		let embed = new Discord.MessageEmbed()
 			.setFooter("Thanks for using Terminal!")
 			.setDescription(`**__${finalmessage}__**`)
+			.setAuthor("Terminal Fun Commands", message.client.user.avatarURL())
 			.addField(
 				"Suggestion?",
 				`If you have any debate ideas, Send them to our [server](${config.bserver})!`

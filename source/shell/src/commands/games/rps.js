@@ -1,11 +1,27 @@
-module.exports = {
-	name: "rps",
-	minArgs: 0,
-	maxArgs: 0,
-	cooldown: "10s",
-	description: "Rock paper scissors against AI",
-	category: "Fun & Games",
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "rockpaperscissors",
+			aliases: ["rps"],
+			group: "fun",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "rock_paper_scissors_fun_command",
+			description: "",
+			argsType: "multiple",
+			guildOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+
 		//Notify the author that the game is running
 		message.reply("Enter `r` for rock, `p` for paper, or `s` for scissors.");
 
@@ -66,5 +82,6 @@ module.exports = {
 			return message.reply(
 				`You won! I responded with **${response}**, and you entered **${answerLower}**!`
 			);
-	},
+	}
 };
+

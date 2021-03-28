@@ -5,7 +5,7 @@ module.exports = class Command extends commando.Command {
 	constructor(client) {
 		super(client, {
 			name: "help",
-			// aliases: ["command", "commands"],
+			aliases: ["command", "commands"],
 			group: "misc",
 			userPermissions: ["SEND_MESSAGES"],
 			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
@@ -35,10 +35,10 @@ module.exports = class Command extends commando.Command {
 					},
 					{
 						name: "Documentation",
-						value: `My Officual [Docs](https://google.com) *coming soon*`,
+						value: `My Offical [Docs](https://google.com) *coming soon*`,
 					},
 					{
-						name: "How To configure Me",
+						name: "Configuration Settings",
 						value: `I have over one hundred commands built in and ready to use! To get started I recommend looked at my docs. You can also set my modlogging system, mute role, and verification system.`,
 					},
 					{
@@ -46,12 +46,12 @@ module.exports = class Command extends commando.Command {
 						value: `For any support or bugs with the bot, please contract the developers [here](${config.bserver})`,
 					},
 					{
-						name: "Want to build A bot like me?",
-						value: `You can check out the [Discord Bot Guide](${config.bot_docs}). Its a little something my creator has been working on.`,
+						name: "Interesting in bot programming?",
+						value: `You can check out the [Discord Bot Guide](${config.bot_guide_docs}). Its a little something my creator has been working on.`,
 					}
 				)
 				.addFields(
-					{ name: "More Commands?", value: `\`${prefix}help docs\`` },
+					{ name: "Getting Started?", value: `\`${prefix}help docs\`` },
 					{ name: "config", value: `\`${prefix}help config\`` },
 					{ name: "general", value: `\`${prefix}help general\`` }
 				)

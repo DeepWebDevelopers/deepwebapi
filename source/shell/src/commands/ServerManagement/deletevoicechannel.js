@@ -1,13 +1,28 @@
 const Discord = require("discord.js");
-module.exports = {
-	name: "deletevoicechannel",
-	aliases: ["dvc"],
-	minArgs: 1,
-	maxArgs: 1,
-	expectedArgs: "<channel ID>",
-	description: "Delete a voice channel",
-	category: "Moderation",
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "deletevoicechannel",
+			aliases: ["dvc"],
+			group: "creation",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "deletevoicechannel_creation_command",
+			description: "deletevoicechannel",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+	
 		if (!message.member.hasPermission("MANAGE_CHANNELS", (explicit = true))) {
 			const permEmbed = new Discord.MessageEmbed()
 				.setColor("RANDOM")
@@ -147,5 +162,5 @@ module.exports = {
 			.setTimestamp()
 			.setFooter("Thank you for using Terminal!");
 		modlog.send(logEmbed);
-	},
+	}
 };

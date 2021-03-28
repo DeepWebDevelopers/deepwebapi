@@ -1,32 +1,40 @@
-const Discord = require("discord.js")
-const canvacord = require("canvacord").Canvas
-module.exports = {
-    name: 'beautiful',
-    minArgs: 0,
-    maxArgs: 1,
-    expectedArgs: "[mention]",
-    description: "Oh this? This is beautiful!",
-    category: "Images",
-    run: async ({
-        message,
-        args,
-        text,
-        client,
-        prefix,
-        instance
-    }) => {
-        const target = message.mentions.users.first() || message.author
-        const pfp = target.displayAvatarURL({
-            dynamic: false,
-            format: "png"
-        })
+const canvacord = require("canvacord").Canvas;
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "beautiful",
+			// aliases: [""],
+			group: "images",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "beautiful_img_command",
+			description: "Oh this? This is beautiful!",
+			argsType: "multiple",
+			guildOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 35,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
 
-        canvacord.beautiful(pfp).then(data => {
-            let att = new Discord.MessageAttachment()
-                .setFile(data)
-                .setName("beautiful.png")
+		const target = message.mentions.users.first() || message.author;
+		const pfp = target.displayAvatarURL({
+			dynamic: false,
+			format: "png",
+		});
 
-            message.channel.send(att)
-        })
-    }
-}
+		canvacord.beautiful(pfp).then((data) => {
+			let att = new Discord.MessageAttachment()
+				.setFile(data)
+				.setName("beautiful.png");
+
+			message.channel.send(att);
+		});
+	}
+};

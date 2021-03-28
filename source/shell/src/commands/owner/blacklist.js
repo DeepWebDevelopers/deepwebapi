@@ -1,17 +1,30 @@
-const Discord = require("discord.js");
 const db = require("../../db/blacklist");
 const mongo = require("../../../config/mongo");
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "blacklist",
+			aliases: ["bl"],
+			group: "owner",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "",
+			description: "",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
 
-module.exports = {
-	name: "blacklist",
-	minArgs: 1,
-	maxArgs: -1,
-	expectedArgs: "<user id>",
-	description: "Run a child process in Discord",
-	category: "Bot Owner",
-	// testOnly: true,
-	ownerOnly: true,
-	run: async ({ message, args, text, client, prefix, instance }) => {
 		message.reply("comming soon...");
-	},
+	}
 };
