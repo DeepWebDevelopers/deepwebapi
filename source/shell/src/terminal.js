@@ -23,7 +23,7 @@ const client = new Commando.Client({
 	messageEditHistoryMaxSize: -1,
 	messageSweepInterval: 0,
 	messageCacheLifetime: 0,
-	messageCacheMaxSize: 200,
+	messageCacheMaxSize: 200, 
 	http: {
 		version: 7,
 		api: "https://discord.com/api",
@@ -38,34 +38,33 @@ const client = new Commando.Client({
 client.registry
 	.registerDefaultTypes({})
 	.registerGroups([
-		["test", "..."],
-		["information", "..."],
-		["moderation", ""],
-		["owner", "..."],
-		["config", "..."],
-		["misc", "..."],
-		["economy", "..."],
-		["fun", "..."],
-		["games", "..."],
-		["giveaways", "..."],
-		["images", "..."],
-		["leveling", "..."],
-		["org", "..."],
-		["music", "..."],
-		["util", "..."],
-		["tickets", "..."],
-		["webhooks", "..."],
-		["creation", "..."],
+		["test", "Developer test commands"],
+		["information", "Information commands for bots or users."],
+		["moderation", "Moderation command for your server."],
+		["owner", "Commands only used by the bot owner"],
+		["config", "Configuration commands for your server."],
+		["prod_dev", "Developer_help commands."],
+		["economy", "Economy commands"],
+		["fun", "Random fun commands to use with friends."],
+		["games", "Games to play with the bot."],
+		["images", "Commands that can manipulate images"],
+		["leveling", "Xp commands"],
+		["coding", "Commands to help programmers."],
+		["music", "Play music commands in your server"],
+		["util", "Other random commands to help you out."],
+		["tickets", "Server ticket system"],
+		["webhooks", "Webhook commands for different websites."],
+		["creation", "Commands to help you create different things in your server."],
 		//	["", ""],
 	])
 	.registerDefaultGroups()
 	.registerDefaultCommands({
-		help: false,
+		help: true,
 		ping: false,
 		eval: true,
 		prefix: false,
 		commandState: true,
-		unknownCommand: true,
+		unknownCommand: false,
 	})
 	.registerCommandsIn(path.join(__dirname, "commands"));
 

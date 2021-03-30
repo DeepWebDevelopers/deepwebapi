@@ -4,9 +4,9 @@ const config = require("../../../config/config.json");
 module.exports = class Command extends commando.Command {
 	constructor(client) {
 		super(client, {
-			name: "help",
-			aliases: ["command", "commands"],
-			group: "misc",
+			name: "help2",
+			aliases: ["command2", "commands2"],
+			group: "information",
 			userPermissions: ["SEND_MESSAGES"],
 			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
 			memberName: "help_command",
@@ -34,16 +34,12 @@ module.exports = class Command extends commando.Command {
 						value: `My prefix in this server is \`${prefix}\` To change it run: **${prefix}prefix <new prefix>**`,
 					},
 					{
-						name: "Documentation",
-						value: `My Offical [Docs](https://google.com) *coming soon*`,
-					},
-					{
 						name: "Configuration Settings",
-						value: `I have over one hundred commands built in and ready to use! To get started I recommend looked at my docs. You can also set my modlogging system, mute role, and verification system.`,
+						value: `I have over one hundred commands built in and ready to use! \n To get started I recommend looked at my docs. You can also set my modlogging system, mute role, and verification system.`,
 					},
 					{
 						name: "Support",
-						value: `For any support or bugs with the bot, please contract the developers [here](${config.bserver})`,
+						value: `For any support or bugs with the bot, please contract the developers [here](${config.bserver})!`,
 					},
 					{
 						name: "Interesting in bot programming?",
@@ -51,9 +47,9 @@ module.exports = class Command extends commando.Command {
 					}
 				)
 				.addFields(
-					{ name: "Getting Started?", value: `\`${prefix}help docs\`` },
-					{ name: "config", value: `\`${prefix}help config\`` },
-					{ name: "general", value: `\`${prefix}help general\`` }
+					{ name: "Documentation", value: `\`${prefix}help docs\`` },
+					{ name: "Configure Me", value: `\`${prefix}help config\`` },
+					{ name: "Basic Commands", value: `\`${prefix}help general\`` }
 				)
 				.setFooter(`Terminal is developed by ThatGuyJamal#2695`)
 				.setThumbnail(

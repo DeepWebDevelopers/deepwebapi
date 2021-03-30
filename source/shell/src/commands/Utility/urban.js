@@ -1,14 +1,31 @@
-const Discord = require("discord.js")
 const urban = require("relevant-urban")
-module.exports = {
-    name: 'urban',
-    minArgs: 1,
-    maxArgs: -1,
-    expectedArgs: "<search query (one word)>",
-    description: "Urban dictionary",
-    category: "Utility",
-    run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "urban",
+			aliases: ["uirbandic", "define", "dictionary", "meaning"],
+			group: "util",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "urban_util_command",
+			description: "urban dictionary",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 2,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+	
         if (!args[0]) return message.channel.send("Please specify the query.")
+
+        let text = args[0]
 
         let result = await urban(text).catch(e => {
             return message.channel.send(`Unknown word phrase of **${text}**, please try again.`)

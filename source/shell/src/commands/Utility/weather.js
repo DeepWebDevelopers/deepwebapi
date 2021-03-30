@@ -1,13 +1,29 @@
-const Discord = require("discord.js")
 const weather = require("weather-js")
-module.exports = {
-    name: 'weather',
-    minArgs: 1,
-    maxArgs: -1,
-    expectedArgs: "<city>",
-    description: "Fetch weather information",
-    category: "Utility",
-    run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "weather",
+			// aliases: [""],
+			group: "util",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "weather_util_command",
+			description: "Fetch weather information",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 35,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+        
         let city = args.join(" ")
         let degreetype = "C"
 

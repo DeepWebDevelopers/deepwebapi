@@ -1,14 +1,29 @@
 const Discord = require("discord.js");
-module.exports = {
-	name: "avatar",
-	aliases: ["pfp"],
-	minArgs: 0,
-	maxArgs: 1,
-	cooldown: "10s",
-	expectedArgs: "[mention]",
-	description: "Fetch your profile avatar",
-	category: "Utility",
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "avatar",
+			aliases: ["pfp", "av"],
+			group: "util",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "user_avatar_command",
+			description: "Fetch a users profile avatar",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 35,
+			},
+		});
+	}
+	async run(message, args, client) {
+		try {
+		const prefix = message.guild.commandPrefix;
+	
 		let target = message.mentions.users.first() || message.author;
 
 		let webp16 = target.displayAvatarURL({
@@ -210,6 +225,7 @@ module.exports = {
 			.setTitle(`Profile picture for ${target.tag}`)
 			.setAuthor(target.tag, target.avatarURL())
 			.setDescription("Choose your desired file format and size:")
+			.setThumbnail(target.displayAvatarURL())
 			.addFields(
 				{
 					name: "WebP:",
@@ -232,10 +248,14 @@ module.exports = {
 					value: `[16](${gif16}) | [32](${gif32}) | [64](${gif64}) | [128](${gif128}) | [256](${gif256}) | [512](${gif512}) | [1024](${gif1024}) | [2048](${gif2048}) | [4096](${gif4096})`,
 				}
 			)
-			.setThumbnail(message.client.user.avatarURL())
+			// .setThumbnail(message.client.user.avatarURL())
 			.setTimestamp()
 			.setFooter("Thank you for using Terminal!");
 
 		message.channel.send(embed);
-	},
+			} catch (error) {
+				console.log(error);
+				return message.reply(`I have ran into an error fetching this users avatar. Try again.`)
+			}
+	}
 };

@@ -1,12 +1,28 @@
-const Discord = require("discord.js")
-module.exports = {
-    name: 'binary',
-    minArgs: 2,
-    maxArgs: -1,
-    expectedArgs: "<either encode or decode> <value>",
-    description: "Convert binary to text or the other way around",
-    category: "Utility",
-    run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "binary",
+			// aliases: [""],
+			group: "util",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "binary_util_command",
+			description: "Convert binary to text or the other way around.",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 2,
+				duration: 20,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+
         if (!args[0]) return message.channel.send("Unknown parameter. Please choose the method first, either decode or encode it.");
 
         let choice = ["encode", "decode"];

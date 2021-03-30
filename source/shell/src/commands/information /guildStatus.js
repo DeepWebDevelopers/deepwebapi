@@ -4,7 +4,7 @@ module.exports = class Command extends commando.Command {
 	constructor(client) {
 		super(client, {
 			name: "guild",
-			aliases: ["guildinfo", "serverinfo"],
+			aliases: ["guildinfo", "serverinfo", "server	"],
 			group: "information",
 			userPermissions: ["SEND_MESSAGES"],
 			clientPermissions: ["SEND_MESSAGES"],
@@ -21,7 +21,7 @@ module.exports = class Command extends commando.Command {
 	async run(message, args) {
 		const embed = new Discord.MessageEmbed()
 			.setColor("RANDOM")
-			.setTitle("Server stats")
+			.setTitle(`${message.guild.name} stats!`)
 			.setAuthor(message.author.tag, message.author.avatarURL())
 			.setThumbnail(message.client.user.avatarURL())
 			.setTimestamp()

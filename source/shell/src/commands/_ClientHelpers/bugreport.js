@@ -6,7 +6,7 @@ module.exports = class Command extends commando.Command {
 		super(client, {
 			name: "bugreport",
 			aliases: ["breport"],
-			group: "misc",
+			group: "prod_dev",
 			userPermissions: ["SEND_MESSAGES"],
 			clientPermissions: [
 				"SEND_MESSAGES",

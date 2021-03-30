@@ -9,7 +9,7 @@ module.exports = class Command extends commando.Command {
 		super(client, {
 			name: "npm",
 			aliases: ["nodedocs", "npmsr"],
-			group: "org",
+			group: "coding",
 			userPermissions: ["SEND_MESSAGES"],
 			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
 			memberName: "npm_search_command",

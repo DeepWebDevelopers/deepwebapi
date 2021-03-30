@@ -1,12 +1,29 @@
-const Discord = require("discord.js")
 const generatePassword = require("password-generator")
-module.exports = {
-    name: 'code',
-    minArgs: 0,
-    maxArgs: 0,
-    description: "Generate a code",
-    category: "Utility",
-    run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "passcode",
+			aliases: ["password"],
+			group: "util",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "passcode_genorator_command",
+			description: "Generates a code.",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 2,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+	
         message.channel.send("__**I will generate a code with the following properties:**__\n> Between 16 and 32 characters\n> A minimum of 4 uppercase letters\n> A minimum of 6 lowercase letters\n> A minimum of 4 numbers\n> A minimum of 2 special characters from the following: `? -`\n\nDo you agree to the conditions? **YES** or **NO**")
 
         const filter = msg => msg.author.id === message.author.id;

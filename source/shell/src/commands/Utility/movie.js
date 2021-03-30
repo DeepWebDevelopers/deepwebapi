@@ -1,31 +1,54 @@
-const Discord = require("discord.js")
 const axios = require("axios").default
-module.exports = {
-    name: 'movie',
-    minArgs: 1,
-    maxArgs: -1,
-    expectedArgs: "<movie search query>",
-    description: "Search for a movie",
-    category: "Utility",
-    run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "movie",
+			aliases: ["show", "movie-search"],
+			group: "util",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "movie_util_command",
+			description: "Search for a movie",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 1,
+				duration: 20,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+
+        let text = args.join(" ")
+        if(!text) {
+            return message.reply("You did not give me a movie to search.")
+        }
+
         var options = {
-            method: 'GET',
-            url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/${text}`,
-            headers: {
-                'x-rapidapi-key': process.env.RAPID_API,
-                'x-rapidapi-host': 'imdb-internet-movie-database-unofficial.p.rapidapi.com'
-            }
-        };
+					method: "GET",
+					url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/${text}`,
+					headers: {
+						"x-rapidapi-key": config.RAPID_API_KEY,
+						"x-rapidapi-host":
+							"imdb-internet-movie-database-unofficial.p.rapidapi.com",
+					},
+				};
 
         axios.request(options).then(results => {
             var options2 = {
-                method: 'GET',
-                url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${results.data.titles[0].id}`,
-                headers: {
-                    'x-rapidapi-key': process.env.RAPID_API,
-                    'x-rapidapi-host': 'imdb-internet-movie-database-unofficial.p.rapidapi.com'
-                }
-            };
+							method: "GET",
+							url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${results.data.titles[0].id}`,
+							headers: {
+								"x-rapidapi-key": config.RAPID_API_KEY,
+								"x-rapidapi-host":
+									"imdb-internet-movie-database-unofficial.p.rapidapi.com",
+							},
+						};
 
             axios.request(options2).then(result => {
                 let cast = []

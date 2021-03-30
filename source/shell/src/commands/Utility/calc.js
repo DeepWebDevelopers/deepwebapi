@@ -1,13 +1,29 @@
-const Discord = require("discord.js");
 const math = require("mathjs");
-module.exports = {
-	name: "calc",
-	minArgs: 1,
-	maxArgs: -1,
-	expectedArgs: "<math input>",
-	description: "Math calculator",
-	category: "Utility",
-	run: async ({ message, args, text, client, prefix, instance }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "math",
+			aliases: ["equation", "calc"],
+			group: "util",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "math_util_command",
+			description: "",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+
 		if (!args[0]) return message.channel.send("Input a calculaton");
 
 		let resp;
@@ -29,5 +45,5 @@ module.exports = {
 			.addField("Output", `\`\`\`${resp}\`\`\``);
 
 		message.channel.send(embed);
-	},
+	}
 };

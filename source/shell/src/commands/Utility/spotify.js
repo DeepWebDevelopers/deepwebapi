@@ -1,20 +1,29 @@
-const Discord = require("discord.js")
 const canvacord = require("canvacord")
-module.exports = {
-    name: 'spotify',
-    minArgs: 0,
-    maxArgs: 1,
-    expectedArgs: "[mention]",
-    description: "Displays a user's Spotify status",
-    category: "Utility",
-    run: async ({
-        message,
-        args,
-        text,
-        client,
-        prefix,
-        instance
-    }) => {
+const Discord = require("discord.js");
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+	constructor(client) {
+		super(client, {
+			name: "spotify",
+			// aliases: [""],
+			group: "util",
+			userPermissions: ["SEND_MESSAGES"],
+			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			memberName: "spotify_status_command",
+			description: "Displays a user's Spotify status",
+			argsType: "multiple",
+			guildOnly: true,
+			ownerOnly: true,
+			throttling: {
+				usages: 1,
+				duration: 25,
+			},
+		});
+	}
+	async run(message, args, client) {
+		const prefix = message.guild.commandPrefix;
+	
         let listeningPresence
         let target = message.mentions.members.first() || message.member
 

@@ -7,7 +7,7 @@ module.exports = class Command extends commando.Command {
 		super(client, {
 			name: "sbin",
 			aliases: ["sourceup", "superbin"],
-			group: "org",
+			group: "coding",
 			userPermissions: ["SEND_MESSAGES"],
 			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
 			memberName: "super_bin_command",

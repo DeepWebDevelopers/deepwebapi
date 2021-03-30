@@ -12,9 +12,10 @@ module.exports = class GifCommand extends Command {
 			description: "Provide a query and replies with a gif!",
 			userPermissions: ["SEND_MESSAGES"],
 			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+			guildOnly: true,
 			throttling: {
-				usages: 1,
-				duration: 4,
+				usages: 2,
+				duration: 25,
 			},
 			args: [
 				{

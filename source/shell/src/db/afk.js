@@ -1,8 +1,24 @@
 const mongoose = require("mongoose");
+
+const afkOptString = {
+	type: String,
+	required: true,
+};
+
+const afkOptNumber = {
+	type: Number,
+	required: false,
+};
+
+const afkOptBoolean = {
+	type: Boolean,
+	required: true,
+};
+
 const Schema = new mongoose.Schema({
-	id: { type: String, required: true },
-	isafk: { type: Boolean, default: false },
-	reason: { type: String },
-	timeAfk: { type: Number },
+	id: afkOptString,
+	isafk: afkOptBoolean,
+	reason: afkOptString,
+	timeAfk: afkOptNumber,
 });
 module.exports = mongoose.model("afk", Schema);

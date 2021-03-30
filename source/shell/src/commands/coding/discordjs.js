@@ -7,7 +7,7 @@ module.exports = class Command extends commando.Command {
 		super(client, {
 			name: "docs",
 			aliases: ["docsjs"],
-			group: "org",
+			group: "coding",
 			userPermissions: ["SEND_MESSAGES"],
 			clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
 			memberName: "discord_js_docs_command",

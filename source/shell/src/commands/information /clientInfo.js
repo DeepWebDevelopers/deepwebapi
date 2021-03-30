@@ -20,17 +20,20 @@ module.exports = class Command extends commando.Command {
 		});
 	}
 	async run(message, args) {
-		if (!args[0])
-			return message.reply("expectedArgs: version, server, support, dwd, code");
+			if (!args[0])
+				return message.reply(
+					"I expected one of the following arguments behind invite. \n Exmaple: **info server** or **info version**. \n\n Options: `version`, `server`, `support`, `dwd`, `code`"
+				);
 
 		if (args[0] === "version") {
-			const version = "0.0.4";
+			const version = "0.0.7";
 
 			const versionEmbed = new Discord.MessageEmbed()
 				.setColor("RANDOM")
 				.setTitle("Bot Version")
 				.setAuthor(message.author.tag, message.author.avatarURL())
 				.setDescription("Current version of Terminal is **" + version + "**.")
+				.addField("Dev Status", "Beta (full release on version 1.0.0)")
 				.setThumbnail(message.client.user.avatarURL())
 				.setTimestamp()
 				.setFooter("Thank you for using Terminal!");
@@ -42,6 +45,7 @@ module.exports = class Command extends commando.Command {
 				.setTitle("Servers")
 				.setAuthor(message.author.tag, message.author.avatarURL())
 				.setThumbnail(message.client.user.avatarURL())
+				.setDescription("The support server for the terminal discord bot, also home to the DeepWebDevelopers!")
 				.addFields({
 					name: "Official Terminal server: ",
 					value: `[here](${config.bserver})`,
