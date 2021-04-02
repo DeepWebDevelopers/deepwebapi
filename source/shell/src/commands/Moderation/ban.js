@@ -25,12 +25,13 @@ module.exports = class Command extends commando.Command {
 
 		const member = message.mentions.members.first();
 
-		if (!member)
+		if (!member) {
 			return message.channel
 				.send(
 					"I cannot find the specified member. Please mention a member in this Discord server."
 				)
 				.then((m) => m.delete({ timeout: 5000 }));
+		}
 
 		const memberId = member.id;
 		const memberTag = `${member.user.username}#${member.user.discriminator}`;

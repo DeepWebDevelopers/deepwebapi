@@ -100,19 +100,24 @@ module.exports = class Command extends commando.Command {
 
 		if (args.length > 1) reason = args.slice(1).join(" ");
 
-		member
-			.send(
-				`👢You were \`kicked\` from **${message.guild.name}** \n**Reason**: ${reason}.`
-			)
-			.catch((err) => {
-				message.channel.semd(`I ran into an err: ${err}`).console.log(err);
-				return;
-			});
-		message.channel.send(
-			`${member} was **kicked**! \n\nAction logged in <#${modlog.id}>`
-		);
-		if (message.author.bot) return;
+		// if (message.author.bot) return;
 		member.kick(reason);
+		if (member === message.author.bot) {
+			return;
+		} else {
+			member
+				.send(
+					`👢You were \`kicked\` from **${message.guild.name}** \n**Reason**: ${reason}.`
+				)
+				.catch((err) => {
+					message.channel.send(`I ran into an err: ${err}`);
+					console.log(err);
+					return;
+				});
+			message.channel.send(
+				`${member} was **kicked**! \n\nAction logged in <#${logChannel.id}>`
+			);
+		}
 		if (!logChannel) {
 			return;
 		} else {
@@ -127,7 +132,10 @@ module.exports = class Command extends commando.Command {
 				.setTimestamp()
 				.setFooter("Thank you for using Terminal!");
 
-			return logChannel.send(embed);
+			logChannel.send(embed);
+
+				
+				return
 		}
 	}
 };

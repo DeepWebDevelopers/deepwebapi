@@ -4,7 +4,7 @@ module.exports = class Command extends commando.Command {
 	constructor(client) {
 		super(client, {
 			name: "guild",
-			aliases: ["guildinfo", "serverinfo", "server	"],
+			aliases: ["guildinfo", "serverinfo", "server", "server	"],
 			group: "information",
 			userPermissions: ["SEND_MESSAGES"],
 			clientPermissions: ["SEND_MESSAGES"],

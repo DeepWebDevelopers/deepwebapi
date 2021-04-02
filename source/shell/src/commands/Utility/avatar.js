@@ -24,7 +24,10 @@ module.exports = class Command extends commando.Command {
 		try {
 		const prefix = message.guild.commandPrefix;
 	
-		let target = message.mentions.users.first() || message.author;
+		let target =
+			message.mentions.users.first() ||
+			message.author ||
+			message.guild.getMember(message, args);
 
 		let webp16 = target.displayAvatarURL({
 			format: "webp",

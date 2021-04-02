@@ -129,7 +129,7 @@ module.exports = class Command extends commando.Command {
 						message.guild.members
 							.unban(user.user.id, reason)
 							.then(() => logChannel.send(embed));
-						message.channel.message.channel.send(
+						message.channel.send(
 							` \n\nAction logged in <#${modlog.id}>`
 						);
 						message.react("👍");
