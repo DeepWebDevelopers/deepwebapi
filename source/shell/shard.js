@@ -1,12 +1,12 @@
 const { ShardingManager } = require("discord.js");
 const config = require("./config/config.json");
 const manager = new ShardingManager("./src/terminal.js", {
-	token: config.token,
+  token: config.token,
 });
 
 manager.on(
-	"shardCreate",
-	async (shard) => await console.log(`< < < Launched shard ${shard.id} > > >`)
+  "shardCreate",
+  async (shard) => await console.log(`< < < Launched shard ${shard.id} > > >`)
 );
 manager.spawn();
 
