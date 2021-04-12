@@ -38,7 +38,7 @@ const client = new Commando.Client({
 client.registry
   .registerDefaultTypes({})
   .registerGroups([
-    ["test", "Developer test commands"],
+    ["test", "Developer test commands."],
     ["information", "Information commands for bots or users."],
     ["moderation", "Moderation command for your server."],
     ["owner", "Commands only used by the bot owner"],
