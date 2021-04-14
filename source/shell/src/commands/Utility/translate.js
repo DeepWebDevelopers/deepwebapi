@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const translate = require("@k3rn31p4nic/google-translate-api");
+const translate = require("@iamtraction/google-translate");
 module.exports = {
   name: "translate",
   minArgs: 3,

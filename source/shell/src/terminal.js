@@ -72,17 +72,11 @@ client.registry
   .registerCommandsIn(path.join(__dirname, "commands"));
 
 //! Maps for other utils
-client.queue = new Map();
-const { GiveawayCreator, DropCreator } = require("discord-giveaway");
-const Creator = new GiveawayCreator(client, config.db);
-client.giveaways = Creator;
-//? Coming soon
-// client.snipes = new Map();
-// client.editsnipes = new Map();
+// ...
 
 //? Commando Database custom Struct
-const { mongo } = require("mongoose");
-const mongoose = require("../config/mongo");
+// const { mongo } = require("mongoose");
+// const mongoose = require("../config/mongo");
 const MongoClient = require("mongodb").MongoClient;
 const MongoDBProvider = require("commando-provider-mongo").MongoDBProvider;
 // mongo config for commando client
