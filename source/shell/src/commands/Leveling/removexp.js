@@ -1,15 +1,29 @@
 const discordXP = require("discord-xp");
 const Discord = require("discord.js");
-module.exports = {
-  name: "removexp",
-  aliases: ["-xp"],
-  minArgs: 1,
-  maxArgs: 2,
-  expectedArgs: "[mention] <amount>",
-  description: "Remove xp from someone's xp profile",
-  category: "Leveling",
-  requiredPermissions: ["ADMINISTRATOR"],
-  run: async ({ message, args, text, client, prefix, instance }) => {
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+  constructor(client) {
+    super(client, {
+      name: "removexp",
+      aliases: ["-xp"],
+      group: "leveling",
+      userPermissions: ["SEND_MESSAGES", "ADMINISTRATOR"],
+      clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+      memberName: "removexp_command",
+      description: "Remove xp from someone's xp profile.",
+      argsType: "multiple",
+      guildOnly: true,
+      ownerOnly: false,
+      throttling: {
+        usages: 3,
+        duration: 25,
+      },
+    });
+  }
+  async run(message, args, client) {
+    const prefix = message.guild.commandPrefix;
+
     let target = message.mentions.members.first();
 
     if (target) {
@@ -44,5 +58,5 @@ module.exports = {
         );
       }, 1000);
     }
-  },
+  }
 };

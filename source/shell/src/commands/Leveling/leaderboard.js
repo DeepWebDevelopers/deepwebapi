@@ -1,13 +1,29 @@
 const discordXP = require("discord-xp");
 const Discord = require("discord.js");
-module.exports = {
-  name: "leaderboard",
-  aliases: ["lb"],
-  minArgs: 0,
-  maxArgs: 0,
-  description: "Top 10 most active members",
-  category: "Leveling",
-  run: async ({ message, args, text, client, prefix, instance }) => {
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+  constructor(client) {
+    super(client, {
+      name: "leaderboard",
+      aliases: ["lb"],
+      group: "leveling",
+      userPermissions: ["SEND_MESSAGES"],
+      clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+      memberName: "leaderboard_command",
+      description: "Top 10 most active members",
+      argsType: "multiple",
+      guildOnly: true,
+      ownerOnly: false,
+      throttling: {
+        usages: 3,
+        duration: 25,
+      },
+    });
+  }
+  async run(message, args, client) {
+    const prefix = message.guild.commandPrefix;
+
     const rawLeaderboard = await discordXP.fetchLeaderboard(
       message.guild.id,
       10
@@ -36,5 +52,5 @@ module.exports = {
       .setFooter("Thank you for using Terminal!");
 
     message.channel.send(embed);
-  },
+  }
 };
