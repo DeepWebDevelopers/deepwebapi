@@ -24,6 +24,7 @@ module.exports = class Command extends commando.Command {
     if (message.mentions.users.size < 1)
       return message.channel.send("How can you pat nobody? 💔");
     let user = message.guild.member(message.mentions.users.first());
+    if (user === message.author) return message.reply("Dont pat yourself...");
     const Patti = new Discord.MessageEmbed()
       .setDescription(
         `${message.author.username} pat's ${user}, What a cutie...❤`

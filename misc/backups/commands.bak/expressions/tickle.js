@@ -27,6 +27,9 @@ module.exports = class TickleCommand extends commando.Command {
     if (message.mentions.users.size < 1)
       return message.channel.send(`How can you kiss tickle nobody?💔`);
     let user = message.guild.member(message.mentions.users.first());
+
+    if (user === message.author)
+      return message.reply("Dont tickle yourself...");
     const embed = new Discord.MessageEmbed()
       .setColor("RANDOM")
       .setAuthor("Terminal Fun Commands", message.client.user.avatarURL())

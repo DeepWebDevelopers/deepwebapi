@@ -93,14 +93,7 @@ client
 client.mongoose = require("../config/mongo");
 // Connects to mongo
 client.mongoose.init();
-// Meesage checks
-client.on("message", async (message) => {
-  const Setprefix = message.guild
-    ? message.guild.commandPrefix
-    : client.commandPrefix;
 
-  if (!message.content.startsWith(Setprefix) || message.author.bot) return;
-});
 //! Function / Events handler
 const { loadEvents } = require("./util/functions");
 loadEvents(client);
@@ -120,7 +113,7 @@ client.on("guildCreate", (guild) => {
     .addFields(
       {
         name: `Why don't you check out my website?`,
-        value: `[Website *coming soon*](${config.website_api})`, // This is optional if you have a website
+        value: `[Website *coming soon*](${config.website_url})`, // This is optional if you have a website
         inline: true,
       },
       {
