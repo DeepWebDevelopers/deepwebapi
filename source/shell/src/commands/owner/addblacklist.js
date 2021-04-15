@@ -2,6 +2,7 @@ const mongo = require("../../../config/mongo");
 const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
   constructor(client) {
     super(client, {
       name: "blacklist",
