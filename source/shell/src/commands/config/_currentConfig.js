@@ -32,23 +32,13 @@ module.exports = class Command extends commando.Command {
       {
         guildID: message.guild.id,
       },
-      async (err, guild) => {
-        if (err) console.error(err);
-        if (!guild) {
-          const newGuild = new Guild({
-            _id: mongoose.Types.ObjectId(),
-            guildID: message.guild.id,
-            guildName: message.guild.name,
-            logChannelID: Loggingchannel.id,
-            logChannelName: Loggingchannel.name,
-          });
 
-          await newGuild
-            .save()
-            .then((result) => console.log(result))
-            .catch((err) => console.error(err));
-        }
-        const logs_channel_id = message.logChannelID;
+      async (err) => {
+        if (err) console.error(err);
+
+        var logs_channel_id = logChannel.logChannelID;
+
+        if (!logs_channel_id) var logs_channel_id = "No channel set";
 
         const embed = new Discord.MessageEmbed()
           .setAuthor(

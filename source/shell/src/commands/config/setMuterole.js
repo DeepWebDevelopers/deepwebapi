@@ -19,6 +19,7 @@ module.exports = class Command extends commando.Command {
         usages: 2,
         duration: 25,
       },
+      examples: ["setmute @muted"],
     });
   }
   async run(message, args, client) {

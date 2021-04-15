@@ -42,6 +42,10 @@ module.exports = class Command extends commando.Command {
       // 		.then((m) => {
       // 			m.delete({ timeout: 3908 });
       // 		});
+
+      if (!message.client.shard)
+        return message.reply("Run Shards to use this command!"); // Stops the user from running the command if shards have not been enabled on the bot.
+
       const promises = [
         message.client.shard.fetchClientValues("guilds.cache.size"),
         message.client.shard.broadcastEval(

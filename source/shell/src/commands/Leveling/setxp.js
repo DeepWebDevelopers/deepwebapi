@@ -1,15 +1,30 @@
 const discordXP = require("discord-xp");
 const Discord = require("discord.js");
-module.exports = {
-  name: "setxp",
-  minArgs: 1,
-  maxArgs: 2,
-  expectedArgs: "[mention] <xp>",
-  description: "Set the XP of someone's xp profile",
-  category: "Leveling",
-  requiredPermissions: ["ADMINISTRATOR"],
-  run: async ({ message, args, text, client, prefix, instance }) => {
-    let target = message.mentions.members.first();
+const commando = require("discord.js-commando");
+const config = require("../../../config/config.json");
+module.exports = class Command extends commando.Command {
+  constructor(client) {
+    super(client, {
+      name: "setxp",
+      // aliases: [""],
+      group: "leveling",
+      userPermissions: ["SEND_MESSAGES", "ADMINISTRATOR"],
+      clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+      memberName: "setxp_command",
+      description: "Set the XP of someone's xp profile",
+      argsType: "multiple",
+      guildOnly: true,
+      ownerOnly: false,
+      throttling: {
+        usages: 3,
+        duration: 25,
+      },
+    });
+  }
+  async run(message, args, client) {
+    const prefix = message.guild.commandPrefix;
+
+    let target = message.mentions.members.first() || message.author;
 
     if (target) {
       let amountToAdd = parseInt(args[1]);
@@ -36,5 +51,5 @@ module.exports = {
         message.reply(`I have set your XP to **${amountToAdd}**.`);
       }, 1000);
     }
-  },
+  }
 };

@@ -58,6 +58,8 @@ client.registry
       "creation",
       "Commands to help you create different things in your server.",
     ],
+    ["suggestions", "Suggestions for your server."],
+    ["ranks", "A rank/role system for your server."],
     //	["", ""],
   ])
   .registerDefaultGroups()

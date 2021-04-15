@@ -19,6 +19,7 @@ module.exports = class Command extends commando.Command {
         usages: 2,
         duration: 15,
       },
+      examples: ["setlogs #moglods"],
     });
   }
   async run(message, args, client) {

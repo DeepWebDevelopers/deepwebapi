@@ -6,13 +6,13 @@ const config = require("../../../config/config.json");
 module.exports = class Command extends commando.Command {
   constructor(client) {
     super(client, {
-      name: "blacklist",
-      aliases: ["bl"],
+      name: "unblacklist",
+      aliases: ["unbl"],
       group: "owner",
       userPermissions: ["SEND_MESSAGES"],
       clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
-      memberName: "owner_blacklist_command",
-      description: "Added a user to the bots blacklist.",
+      memberName: "owner_remove_blacklist_command",
+      description: "Removes a user from the bots blacklist.",
       argsType: "multiple",
       guildOnly: true,
       ownerOnly: true,
@@ -32,23 +32,19 @@ module.exports = class Command extends commando.Command {
     const Target =
       message.guild.members.cache.get(args[0]) ||
       message.mentions.members.first();
-    if (!Target) return message.channel.send("Enter someone to blacklist");
+    if (!Target) return message.channel.send("Enter someone to un-blacklist");
 
     blacklist.findOne({ userID: Target.user.id }, async (err, data) => {
       if (err) throw err;
       if (data) {
+        await blacklist
+          .findOneAndDelete({ userID: Target.user.id })
+          .catch((err) => console.log(err));
         message.channel.send(
-          `**${Target.displayName}** has already been blacklisted!`
+          `**${Target.displayName}** has been removed from blacklist.`
         );
       } else {
-        data = new blacklist({
-          userID: Target.user.id,
-          userName: Target.user.name,
-        });
-        data.save().catch((err) => console.log(err));
-        message.channel.send(
-          `${Target.user.tag} has been added to my blacklist.`
-        );
+        message.channel.send(`**${Target.displayName}** is not blacklisted.`);
       }
     });
   }
