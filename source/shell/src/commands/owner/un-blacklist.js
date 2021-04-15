@@ -7,7 +7,7 @@ module.exports = class Command extends commando.Command {
   constructor(client) {
     super(client, {
       name: "unblacklist",
-      aliases: ["unbl"],
+      aliases: ["unbl", "delblacklist"],
       group: "owner",
       userPermissions: ["SEND_MESSAGES"],
       clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
@@ -43,6 +43,21 @@ module.exports = class Command extends commando.Command {
         message.channel.send(
           `**${Target.displayName}** has been removed from blacklist.`
         );
+
+        const blacklist_logs = message.client.channels.cache
+          .get("832343773509058560")
+          .send(
+            new Discord.MessageEmbed()
+              .setAuthor(
+                `Spammer forgiven by ${message.author.tag}`,
+                message.author.displayAvatarURL()
+              )
+              .setTitle("Blacklist removed!")
+              .setColor("BLURPLE")
+              .setDescription(`User: ${Target.user.tag}, ID (${Target.id})`)
+              .setTimestamp()
+              .setFooter("No Do-Overs!")
+          );
       } else {
         message.channel.send(`**${Target.displayName}** is not blacklisted.`);
       }

@@ -81,7 +81,7 @@ module.exports = class Command extends commando.Command {
             .catch((err) => console.error(err));
 
           return message.channel.send(
-            `The mod logs channel has been set to ${Loggingchannel}`
+            `The mod logs channel has been set to ${Loggingchannel}. To reset this data run: ${prefix}reset`
           );
         } else {
           guild
