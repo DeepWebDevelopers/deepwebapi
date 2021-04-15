@@ -28,4 +28,11 @@ module.exports = {
       console.warn("Mongoose connection lost");
     });
   },
+  // used to fetch database ping...
+  async ping() {
+    const currentNano = process.hrtime();
+    await mongoose.connection.db.command({ ping: 1 });
+    const time = process.hrtime(currentNano);
+    return (time[0] * 1e9 + time[1]) * 1e-6;
+  },
 };

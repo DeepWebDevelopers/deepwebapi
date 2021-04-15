@@ -49,7 +49,6 @@ module.exports = class Command extends commando.Command {
       return message.reply(embed);
     }
 
-
     const rankSchema = require("../../db/guild/ranks");
 
     try {

@@ -63,11 +63,11 @@ module.exports = class Command extends commando.Command {
             .setTimestamp();
 
           let bugChannel = message.client.channels.cache.get(
-            "818581998142619678"
+            "772923403908022293"
           );
           await bugChannel.send(embed); // our bug reports channel in the bot server
           message.channel.send(
-            `The message has been sent successfully! **Run: ${prefix}support** to join our support server.`
+            `The message has been sent successfully! **Run: ${prefix}info support** to join our support server.`
           );
         } else if (reaction.first().emoji.name === "❌") {
           const embed = new Discord.MessageEmbed()

@@ -95,13 +95,17 @@ module.exports = class Command extends commando.Command {
             return message.channel.send(embed);
           })
           .catch((err) => {
-            console.log(err);
-            return message.channel.send("An error occurred: " + err.message);
+            // console.log(err);
+            return message.reply(
+              "I cant find that movie! Make sure your spelling is correct, then try again."
+            );
           });
       })
       .catch((err) => {
-        console.log(err);
-        return message.channel.send("An error occurred: " + err.message);
+        // console.log(err);
+        return message.reply(
+          "I cant find that movie! Make sure your spelling is correct, then try again."
+        );
       });
   }
 };

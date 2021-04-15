@@ -30,11 +30,17 @@ module.exports = class Command extends commando.Command {
     // );
     let embed = new Discord.MessageEmbed()
       .setTitle("Terminal Ping")
-      .addField("Message Latency", ` 🏓 Message latency is ${msglate} ms`)
+      .addField("Message Latency", ` 🏓 Message latency is \`${msglate} ms\``)
       .setThumbnail(message.guild.iconURL())
       .addField(
         "Discord API Latency",
-        `🤖 Discord API latency is ${Math.round(message.client.ws.ping)} ms!`
+        `🤖 Discord API latency is \`${Math.round(
+          message.client.ws.ping
+        )} ms!\``
+      )
+      .addField(
+        "DataBase Ping",
+        `🌎 \`${Math.round(await message.client.mongoose.ping())}ms\``
       )
       .setTimestamp()
       .setColor("#2F3136")
