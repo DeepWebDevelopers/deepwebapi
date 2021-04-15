@@ -5,13 +5,13 @@ const config = require("../../../config/config.json");
 module.exports = class Command extends commando.Command {
   constructor(client) {
     super(client, {
-      name: "spank",
+      name: "shit",
       // aliases: [""],
       group: "images",
       userPermissions: ["SEND_MESSAGES"],
       clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],
-      memberName: "spank_img_command",
-      description: "Ow my ass",
+      memberName: "shit_img_command",
+      description: "well... shit",
       argsType: "multiple",
       guildOnly: true,
       throttling: {
@@ -21,30 +21,42 @@ module.exports = class Command extends commando.Command {
     });
   }
   async run(message, args, client) {
+    // ! Checks if the user is blacklisted or not!
+    if (await isBlacklisted(message)) return;
+
+    async function isBlacklisted(message) {
+      const blacklist = require("../../db/blacklist");
+      var isBanned = false;
+      await blacklist.findOne(
+        {
+          userID: message.author.id,
+        },
+        (err, data) => {
+          if (err) throw err;
+          if (data) {
+            isBanned = true;
+            return message.reply(
+              "You are blacklisted from using the bot! \n For more information on why, join our support server."
+            );
+          }
+        }
+      );
+      if (isBanned) return true;
+      return false;
+    }
     const prefix = message.guild.commandPrefix;
 
-    const target = message.mentions.users.first()
-      ? message.author
-      : client.user;
+    const target = message.mentions.users.first() || message.author;
     if (!target) return message.reply("No target given.");
-
     const pfp = target.displayAvatarURL({
       dynamic: false,
       format: "png",
     });
 
-    const target2 = message.mentions.users.first()
-      ? message.mentions.users.first()
-      : message.author;
-    const pfp2 = target2.displayAvatarURL({
-      dynamic: false,
-      format: "png",
-    });
-
-    canvacord.spank(pfp, pfp2).then((data) => {
+    canvacord.shit(pfp).then((data) => {
       let att = new Discord.MessageAttachment()
         .setFile(data)
-        .setName("spank.png");
+        .setName("shit.png");
 
       message.channel.send(att);
     });

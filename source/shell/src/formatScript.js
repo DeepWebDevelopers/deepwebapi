@@ -1,7 +1,7 @@
-const fs = require("fs")
+const fs = require("fs");
 const script = `async run(message) {
 async function isBlacklisted(message) {
-  const blacklist = require("./db/blacklist");
+  const blacklist = require("../../db/blacklist");
   var isBanned = false;
   await blacklist.findOne(
     {
@@ -20,10 +20,10 @@ async function isBlacklisted(message) {
   if (isBanned) return true
   return false
 }
-`
-var files = fs.readdirSync("./commands")
-files.forEach(file => {
-var fileContents = fs.readFileSync(file)
-fileContents.replace("async run(message) {", script)
-fs.writeFileSync(file, fileContents)
-})
+`;
+var files = fs.readdirSync("./commands");
+files.forEach((file) => {
+  var fileContents = fs.readFileSync(file);
+  fileContents.replace("async run(message) {", script);
+  fs.writeFileSync(file, fileContents);
+});

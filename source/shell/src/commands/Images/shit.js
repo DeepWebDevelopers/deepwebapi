@@ -21,6 +21,29 @@ module.exports = class Command extends commando.Command {
     });
   }
   async run(message, args, client) {
+    // ! Checks if the user is blacklisted or not!
+    if (await isBlacklisted(message)) return;
+
+    async function isBlacklisted(message) {
+      const blacklist = require("../../db/blacklist");
+      var isBanned = false;
+      await blacklist.findOne(
+        {
+          userID: message.author.id,
+        },
+        (err, data) => {
+          if (err) throw err;
+          if (data) {
+            isBanned = true;
+            return message.reply(
+              "You are blacklisted from using the bot! \n For more information on why, join our support server."
+            );
+          }
+        }
+      );
+      if (isBanned) return true;
+      return false;
+    }
     const prefix = message.guild.commandPrefix;
 
     const target = message.mentions.users.first() || message.author;
