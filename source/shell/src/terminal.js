@@ -150,6 +150,12 @@ client.on("error", console.error);
 
 //! function to handle sharding
 async function start() {
-  return await client.login(config.token);
+  if (client.uptime < 0) {
+    console
+      .log("The bot is already running on another proccess!")
+      .then(client.destroy()); // checks to make sure the bot is not running 2 times.
+  } else {
+    return await client.login(config.token);
+  }
 }
 start();

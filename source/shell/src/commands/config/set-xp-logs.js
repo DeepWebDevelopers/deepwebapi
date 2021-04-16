@@ -81,7 +81,9 @@ module.exports = class Command extends commando.Command {
               .then((result) => console.log(result))
               .catch((err) => console.error(err));
 
-            message.reply(`The XP logs channel has been set to ${channel}! To reset run my \`${prefix}reset\` command.`);
+            message.reply(
+              `The XP logs channel has been set to ${channel}! To reset run my \`${prefix}reset\` command.`
+            );
           }
         }
       );

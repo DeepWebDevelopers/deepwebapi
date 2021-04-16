@@ -25,9 +25,15 @@ module.exports = class Command extends commando.Command {
     const prefix = message.guild.commandPrefix;
 
     message.channel.send("The bot is restarting in 3 seconds...").then(() => {
-      setTimeout(() => {
-        client.destroy();
-        shell.exec("yarn demon");
+      setTimeout(async () => {
+        await message.client.destroy();
+        shell.exec("yarn demon").catch((e) => {
+          console
+            .log(`Error Restarting bot retrying... \n Error: ${e}`)
+            .then(
+              shell.exec("node .").then(console.log("login retry successful!"))
+            );
+        });
       }, 3000);
     });
   }

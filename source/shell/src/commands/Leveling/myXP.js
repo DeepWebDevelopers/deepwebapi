@@ -5,7 +5,7 @@ const config = require("../../../config/config.json");
 module.exports = class Command extends commando.Command {
   constructor(client) {
     super(client, {
-      name: "rank",
+      name: "xp",
       aliases: ["level"],
       group: "leveling",
       userPermissions: ["SEND_MESSAGES"],

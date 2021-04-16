@@ -6,7 +6,7 @@ module.exports = class Command extends commando.Command {
   constructor(client) {
     super(client, {
       name: "removexp",
-      aliases: ["-xp"],
+      // aliases: ["rxp"],
       group: "leveling",
       userPermissions: ["SEND_MESSAGES", "ADMINISTRATOR"],
       clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL"],

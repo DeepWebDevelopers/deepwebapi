@@ -45,6 +45,17 @@ module.exports = class Command extends commando.Command {
       return false;
     }
     const prefix = message.guild.commandPrefix;
+
+    // ! add when bots in more servers
+    //   const Map = client.guilds.cache.sort((a, b) => b.memberCount - a.memberCount).first(10).map((guild) => {
+    //     return guild.name
+    // }).join("\n")
+    // const embed = new MessageEmbed()
+    //     .setTitle(`Top 10 servers`)
+    //     .setDescription(Map)
+    //     .setColor("RANDOM")
+    // message.channel.send(embed)
+
     let serverlist = "";
     message.client.guilds.cache.forEach((guild) => {
       serverlist = serverlist.concat(

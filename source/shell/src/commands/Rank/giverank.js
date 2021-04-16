@@ -5,12 +5,17 @@ const mongoose = require("mongoose");
 module.exports = class Command extends commando.Command {
   constructor(client) {
     super(client, {
-      name: "ranks",
+      name: "rank",
       //   aliases: ["-rank"],
       group: "ranks",
-      userPermissions: ["SEND_MESSAGES", "ADMINISTRATOR"],
-      clientPermissions: ["SEND_MESSAGES", "VIEW_CHANNEL", "MANAGE_ROLES"],
-      memberName: "ranks_command",
+      userPermissions: ["SEND_MESSAGES"],
+      clientPermissions: [
+        "SEND_MESSAGES",
+        "VIEW_CHANNEL",
+        "MANAGE_ROLES",
+        "MANAGE_GUILD",
+      ],
+      memberName: "rank_show_all_command",
       description: "Shows a list of current server ranks.",
       argsType: "multiple",
       guildOnly: true,
@@ -50,26 +55,38 @@ module.exports = class Command extends commando.Command {
     const rankSchema = require("../../db/guild/ranks");
 
     try {
-      rankSchema.find({ guildID: message.guild.id }, async (err, data) => {
-        if (data) {
-          let rankDataMap = data
-            .map(({ rank, roleID }, index) => {
-              return `#${index + 1} | **${rank}** => <@&${roleID}>`;
-            })
-            .join("\n");
+      const rankName = args.join(" ");
+      if (!rankName)
+        return message.reply(
+          `Enter a Rank name to add, or check the list of ranks with \`${prefix}ranks\``
+        );
 
-          const rankShowEmbed = new Discord.MessageEmbed()
-            .setTimestamp()
-            .setTitle(`All ranks in **${message.guild.name}!**`)
-            .setColor("RANDOM")
-            .setFooter("Thank you for using Terminal!")
-
-            .setDescription(rankDataMap);
-          message.channel.send(rankShowEmbed);
-        } else if (!data) {
-          return message.reply("There are no ranks for this server!");
+      rankSchema.findOne(
+        { guildID: message.guild.id, rank: rankName },
+        async (err, data) => {
+          if (data) {
+            //   let rankRoleFetch = data.map(({roleID, rank}, index) => {
+            //       return roleID
+            //   })
+            // if (
+            //     rankRoleFetch.position > message.guild.me.roles.highest.position
+            // ) {
+            //   return message.reply(
+            //     "`❌` The provided role is higher than my role in the role hierarchy!"
+            //   );
+            // rankRoleFetch.position < message.guild.me.roles.highest.position
+            message.member.roles.add(data.roleID);
+            let successEmbed = new Discord.MessageEmbed().setDescription(
+              `You have been given the role **<@&${data.roleID}>**!`
+            );
+            return message.reply(successEmbed);
+          } else {
+            return message.reply(
+              `The rank does not exist! Check: \`${prefix}ranks\``
+            );
+          }
         }
-      });
+      );
     } catch (error) {
       console.log(error);
       return message.reply(`ERROR: \n${error}`);

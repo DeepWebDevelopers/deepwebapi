@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const commando = require("discord.js-commando");
 const logChannel = require("../../db/guild/logging");
 const muterole = require("../../db/guild/muterole");
-const XPchannel = require('../../db/guild/xp-logs')
+const XPchannel = require("../../db/guild/xp-logs");
 const config = require("../../../config/config.json");
 module.exports = class Command extends commando.Command {
   constructor(client) {
@@ -123,15 +123,15 @@ module.exports = class Command extends commando.Command {
           message.channel.send(allembed);
           break;
         case "xpchannel":
-          XPchannel.deleteOne({guildID: message.guild.id}, (err) => {
-            console.log(err)
-          })
+          XPchannel.deleteOne({ guildID: message.guild.id }, (err) => {
+            console.log(err);
+          });
           let xpChannelSuccess = new Discord.MessageEmbed()
-          .setTitle("Data Reset")
-          .setDescription("Your XP log channel data has been deleted.")
-          .setColor("GREEN");
-        message.channel.send(xpChannelSuccess);
-        break
+            .setTitle("Data Reset")
+            .setDescription("Your XP log channel data has been deleted.")
+            .setColor("GREEN");
+          message.channel.send(xpChannelSuccess);
+          break;
       }
     }
   }
