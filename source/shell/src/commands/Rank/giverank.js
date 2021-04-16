@@ -65,17 +65,16 @@ module.exports = class Command extends commando.Command {
         { guildID: message.guild.id, rank: rankName },
         async (err, data) => {
           if (data) {
-            //   let rankRoleFetch = data.map(({roleID, rank}, index) => {
-            //       return roleID
-            //   })
-            // if (
-            //     rankRoleFetch.position > message.guild.me.roles.highest.position
-            // ) {
-            //   return message.reply(
-            //     "`❌` The provided role is higher than my role in the role hierarchy!"
-            //   );
-            // rankRoleFetch.position < message.guild.me.roles.highest.position
-            message.member.roles.add(data.roleID);
+            let ROLE = message.guild.roles.cache.get(data.roleID);
+            let MEMBER = message.member.roles.highest
+
+            if (MEMBER.position > message.guild.me.roles.highest.position)
+              return message.reply("Sorry I cant give you a role. Make sure my Bot role is higher than the role your trying to assign.");
+
+            if (ROLE.position < message.guild.me.roles.highest.position)
+              return message.reply("Sorry i cant give you a role. Make sure my role is above all other ranks in the list.");
+
+            message.member.roles.add(ROLE);
             let successEmbed = new Discord.MessageEmbed().setDescription(
               `You have been given the role **<@&${data.roleID}>**!`
             );
