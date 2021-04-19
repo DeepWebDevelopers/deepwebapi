@@ -1,0 +1,78 @@
+{
+	"name": "rework",
+	"version": "1.0.0",
+	"description": "",
+	"exports": "./dist/index.js",
+	"type": "module",
+	"scripts": {
+		"test": "ts-node-dev --respawn --transpile-only --poll ./src/index.ts",
+		"dev": "nodemon --exec ts-node src/index.ts",
+		"lint": "prettier --write .",
+		"build": "tsc"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"husky": {
+		"hooks": {
+			"pre-commit": "yarn dlx @yarnpkg/doctor && lint-staged",
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
+	},
+	"lint-staged": {
+		"*.ts": "prettier --write",
+		"*.js": "prettier --write"
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-angular"
+		],
+		"rules": {
+			"scope-case": [
+				2,
+				"always",
+				"pascal-case"
+			],
+			"type-enum": [
+				2,
+				"always",
+				[
+					"chore",
+					"build",
+					"ci",
+					"docs",
+					"feat",
+					"fix",
+					"perf",
+					"refactor",
+					"revert",
+					"style",
+					"test"
+				]
+			]
+		}
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^12.1.1",
+		"@commitlint/config-angular": "^12.1.1",
+		"@types/glob": "^7.1.3",
+		"@types/ms": "^0.7.31",
+		"@types/node": "^14.14.41",
+		"husky": "^6.0.0",
+		"lint-staged": "^10.5.4",
+		"nodemon": "^2.0.7",
+		"prettier": "^2.2.1",
+		"ts-node": "^9.1.1",
+		"ts-node-dev": "^1.1.6",
+		"typescript": "^4.2.4"
+	},
+	"dependencies": {
+		"@types/consola": "^2.2.5",
+		"alpha-sort": "^5.0.0",
+		"consola": "^2.15.3",
+		"discord.js": "^12.5.3",
+		"glob": "^7.1.6",
+		"imageapi.js": "^1.6.1",
+		"ms": "^2.1.3"
+	}
+}
